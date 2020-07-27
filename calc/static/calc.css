@@ -46,7 +46,7 @@ h3 {
 
 .edit a {
     float: right;
-    padding: 24px 400px 0px 0px;
+    padding: 24px 0px 0px 0px;
 }
 
 .quote {
@@ -91,6 +91,12 @@ h3 {
 
 .fa-edit::before {
     color: #E05F2E;
+    padding: 0px 15px 0px 0px;
+}
+
+.fa-trash-alt::before {
+    color: #E05F2E;
+    padding: 0px 400px 0px 0px;
 }
 
 .login {

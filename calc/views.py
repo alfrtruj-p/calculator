@@ -9,11 +9,15 @@ from .models import Input
 # Create your views here.
 
 
+def data_history(request):
+    quotes = Input.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
+    return render(request, 'calc/data_history.html', {'quotes': quotes})
+
+
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
     #price = calculator.calculation(calculator.piqlConnect_bundle, calculator.online, calculator.online_price, calculator.offline, calculator.offline_price)
-    stuff_for_frontend = {'quote': quote}
-    return render(request, 'calc/data_quote.html', stuff_for_frontend)
+    return render(request, 'calc/data_quote.html', {'quote': quote})
 
 
 @login_required
@@ -28,9 +32,7 @@ def data_input(request):
             return redirect('data_quote', pk=input.pk)
     else:
         form = InputForm()
-        stuff_for_frontend = {'form': form}
-
-    return render(request, 'calc/data_input.html', stuff_for_frontend)
+    return render(request, 'calc/data_input.html', {'form': form})
 
 
 @login_required
@@ -47,11 +49,13 @@ def data_edit(request, pk):
             return redirect('data_quote', pk=input.pk)
     else:
         form = InputForm(instance=input)
-        stuff_for_frontend = {'form': form}
-    return render(request, 'calc/data_input.html', stuff_for_frontend)
+    return render(request, 'calc/data_input.html', {'form': form})
 
 
-def data_history(request):
-    quotes = Input.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
-    stuff_for_frontend = {'quotes': quotes}
-    return render(request, 'calc/data_history.html', stuff_for_frontend)
+def quote_delete(request, pk):
+    quote = get_object_or_404(Input, pk=pk)
+    quote.delete()
+    return redirect('data_history')
+
+
+
