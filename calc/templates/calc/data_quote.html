@@ -1,0 +1,37 @@
+{% extends 'calc/base.html' %}
+
+{% block title %}{{ quote.customer_name }}{% endblock %}
+
+{% block content %}
+
+<div class="edit">
+    {% if user.is_authenticated %}
+    <a href="{% url 'data_edit' pk=quote.pk %}"><i class="fas fa-edit"></i></a>
+    {% endif %}
+    <h3>Quote:</h3>
+</div>
+
+<div class="quote">
+    {% if quote.created_date %}
+        <div class="date">
+            <p>Created: {{ quote.created_date }}</p>
+        </div>
+    {% endif %}
+
+    <div class="my_quote">
+        <p class="client">Customer name: {{ quote.customer_name }}</p>
+        <p>piqlConnect (1TB online - 120GB offline) (eur/yr): {{ quote.piqlConnect_1TB_120GB_in_EUR_per_yr }}</p>
+        <p>Online data (GB): {{ quote.online_data_in_GB }}</p>
+        <p>Online sales price (eur/GB): {{ quote.online_sales_price_EUR_per_GB }}</p>
+        <p>Offline data (GB): {{ quote.offline_data_in_GB }}</p>
+        <p>Offline sales price (eur/GB): {{ quote.offline_sales_price_EUR_per_GB }}</p>
+        <p>Comment: {{ quote.comment|linebreaksbr }}</p>
+    <div class=" result">
+        <p>Total customer price per year for {{ quote.online_data_in_GB }} online storage and
+            {{ quote.offline_data_in_GB }} offline storage is:</p>
+        <p>{{ price }}</p>
+    </div>
+
+    </div>
+</div>
+{% endblock %}}

@@ -1,0 +1,19 @@
+{% extends 'calc/base.html' %}
+
+{% block title %}My quotes{% endblock %}
+
+{% block content %}
+
+<h3>Your Quotes</h3>
+
+{% for quote in quotes %}
+<div class="quote">
+    <div class="date">
+        <p>Created: {{ quote.created_date }}</p>
+    </div>
+    <h1><a href="{% url 'data_quote' pk=quote.pk %}">{{ quote.customer_name }}</a></h1>
+    <p>{{ quote.comment|linebreaksbr }}</p>
+</div>
+{% endfor %}
+
+{% endblock %}
