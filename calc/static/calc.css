@@ -100,5 +100,9 @@ h3 {
 }
 
 .login {
-    width: 40%;
+    width: 45%;
+}
+
+.signup{
+    color: #E05F2E;
 }

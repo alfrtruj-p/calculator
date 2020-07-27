@@ -1,9 +1,11 @@
+from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from calc import calculator
 
-from .forms import InputForm
+from .forms import InputForm, UserForm
 from .models import Input
 
 # Create your views here.
@@ -56,6 +58,19 @@ def quote_delete(request, pk):
     quote = get_object_or_404(Input, pk=pk)
     quote.delete()
     return redirect('data_history')
+
+
+def signup(request):
+    if request.method == 'POST':
+        form = UserForm(request.POST)
+        if form.is_valid():
+            new_user = User.objects.create_user(**form.cleaned_data)
+            login(request, new_user)
+            return redirect('/')
+    else:
+        form = UserForm()
+    return render(request, 'calc/signup.html', {'form': form})
+
 
 
 
