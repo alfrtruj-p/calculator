@@ -6,7 +6,7 @@ from PyInstaller.utils.hooks import collect_data_files
 #datas = collect_data_files('openpyxl')
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(THIS_FOLDER, 'static/calc/piql_prices.xlsx')
+my_file = os.path.join(THIS_FOLDER, 'static/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 
