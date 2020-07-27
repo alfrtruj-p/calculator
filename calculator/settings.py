@@ -20,7 +20,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0(rd&$o#4jljd=!6$sqix08$adlv7r4wov8u-dkz*a!v&kpi9$'
+# SECRET_KEY = '0(rd&$o#4jljd=!6$sqix08$adlv7r4wov8u-dkz*a!v&kpi9$'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -29,7 +30,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = 'data_input'
+LOGIN_REDIRECT_URL = '/'
 
 
 # Application definition

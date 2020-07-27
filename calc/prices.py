@@ -1,7 +1,3 @@
-import openpyxl as xl
-
-#wb = xl.load_workbook('static/calc/piql_prices.xlsx')
-
 
 def price_table(service_prices, sheet):  # create a price table for a service (dictionary)
     for row in range(2, sheet.max_row + 1):

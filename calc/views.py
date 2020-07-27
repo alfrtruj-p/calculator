@@ -54,6 +54,7 @@ def data_edit(request, pk):
     return render(request, 'calc/data_input.html', {'form': form})
 
 
+@login_required
 def quote_delete(request, pk):
     quote = get_object_or_404(Input, pk=pk)
     quote.delete()
