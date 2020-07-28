@@ -18,8 +18,10 @@ def data_history(request):
 
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    #price = calculator.calculation(calculator.piqlConnect_bundle, calculator.online, calculator.online_price, calculator.offline, calculator.offline_price)
-    return render(request, 'calc/data_quote.html', {'quote': quote})
+    price = calculator.calculation(calculator.piqlConnect_bundle, quote.online_data_in_GB, calculator.online_price,
+                           quote.offline_data_in_GB, calculator.offline_price)
+    args = {'quote': quote, 'price': price}
+    return render(request, 'calc/data_quote.html', args)
 
 
 @login_required
@@ -34,7 +36,8 @@ def data_input(request):
             return redirect('data_quote', pk=input.pk)
     else:
         form = InputForm()
-    return render(request, 'calc/data_input.html', {'form': form})
+    args = {'form': form}
+    return render(request, 'calc/data_input.html', args)
 
 
 @login_required
