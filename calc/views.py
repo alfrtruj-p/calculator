@@ -18,8 +18,6 @@ def data_history(request):
 
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    #price = calculator.calculation(calculator.piqlConnect_bundle, quote.online_data, calculator.online_price,
-                                   #quote.offline_data, calculator.offline_price)
     price = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                       quote.layout, quote.payment)
     args = {'quote': quote, 'price': price}

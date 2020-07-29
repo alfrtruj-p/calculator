@@ -22,11 +22,11 @@
 
     <div class="my_quote">
         <p class="client">Customer name: {{ quote.customer_name }}</p>
-
         <p>Online data (GB): {{ quote.online_data }}</p>
-
         <p>Offline data (GB): {{ quote.offline_data }}</p>
 
+        <p>Offline visual (pages): {{ quote.pages }}</p>
+        <p>Payment: {{ quote.payment }}</p>
         <p>Comment: {{ quote.comment|linebreaksbr }}</p>
     <div class=" result">
         <p>Total customer price per year for {{ quote.online_data }} online storage and
