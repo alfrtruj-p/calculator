@@ -28,10 +28,14 @@
         <p>Offline visual (pages): {{ quote.pages }}</p>
         <p>Payment: {{ quote.payment }}</p>
         <p>Comment: {{ quote.comment|linebreaksbr }}</p>
+        <br>
     <div class=" result">
-        <p>Total customer price per year for {{ quote.online_data }} online storage and
-            {{ quote.offline_data }} offline storage is:</p>
-        <p>{{ price }}</p>
+        <p>Online storage per year for {{ quote.online_data }} is:</p>
+        <p>{{ price }} euros</p>
+        <p>Offline storage for {{ quote.offline_data }} digital and {{ quote.pages }} visual is:</p>
+        <p>{{ price }} euros</p>
+        <p>The price for the first year is {{ price }} euros</p>
+        <p>The price from second year is {{ price }} euros</p>
     </div>
 </div>
 {% endblock %}}

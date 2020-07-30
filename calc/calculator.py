@@ -20,7 +20,7 @@ prices.cost_table(cost, sheet)
 
 
 def dig_price(data):
-    if data <= 120:
+    if data < 120:
         service = 'offline_digital_less_reel'
     elif 120 < data <= 1000:
         service = 'offline_digital_120gb_1000gb'
@@ -37,7 +37,10 @@ def digital_price(data, payment):
         free_reel = 0
     else:
         free_reel = 120
-    piqlfilm_digital_price = (data - free_reel) * dig_price(data)
+    if data < 120:
+        piqlfilm_digital_price = dig_price(data)
+    else:
+        piqlfilm_digital_price = (data - free_reel) * dig_price(data)
     return piqlfilm_digital_price
 
 
@@ -63,7 +66,11 @@ def visual_price(pages, layout, payment):
         free_reel = 0
     else:
         free_reel = 65000 * int(layout)
-    piqlfilm_visual_price = ((pages * int(layout)) - free_reel) * vis_price(layout)
+    if pages/int(layout) < 65000:
+        piqlfilm_visual_price = prices.price_calculation(pricing, 'offline_visual_less_reel')
+    else:
+        piqlfilm_visual_price = (pages - free_reel) * vis_price(layout)
+    print(piqlfilm_visual_price)
     return piqlfilm_visual_price
 
 
@@ -90,13 +97,16 @@ def storage_prices(type, data_offline, data_online, pages, layout, payment):
         piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
     elif payment == 'yearly':
         piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_yearly')
+        print(piqlconnect_price)
         online_price = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_yearly_gb')
-        if data_offline > 0:
+        print(online_price)
+        if data_offline > 0 or pages > 0:
             piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
+            print(piqlfilm_price)
     elif payment == 'monthly':
         piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_monthly')
         online_price = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_monthly_gb')
-        if data_offline > 0:
+        if data_offline > 0 or pages > 0:
             piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
     preservation_price = piqlconnect_price + online_price + piqlfilm_price
     return preservation_price
