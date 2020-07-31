@@ -29,13 +29,27 @@
         <p>Payment: {{ quote.payment }}</p>
         <p>Comment: {{ quote.comment|linebreaksbr }}</p>
         <br>
+        <hr>
     <div class=" result">
-        <p>Online storage per year for {{ quote.online_data }} is:</p>
-        <p>{{ price }} euros</p>
-        <p>Offline storage for {{ quote.offline_data }} digital and {{ quote.pages }} visual is:</p>
-        <p>{{ price }} euros</p>
-        <p>The price for the first year is {{ price }} euros</p>
-        <p>The price from second year is {{ price }} euros</p>
+        {% if quote.payment == 'only_piqlfilm' %}
+            <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ price }} euros</p>
+        {% elif quote.payment == 'yearly' %}
+            <p>Online storage per year for {{ quote.online_data }} GB is: {{ online }} euros</p>
+            <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ offline }} euros</p>
+            <p>The price for the first year is {{ price }} euros</p>
+            {% if quote.offline_data or quote.pages > 0 %}
+                <p>The price from second year is {{ online }} euros</p>
+            {% endif %}
+        {% elif quote.payment == 'monthly' %}
+            <p>Online storage per month for {{ quote.online_data }} GB is: {{ online }} euros</p>
+            <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ offline }} euros</p>
+            <p>The price for the first month is {{ price }} euros</p>
+            {% if quote.offline_data or quote.pages > 0 %}
+                <p>The price from second month is {{ online }} euros</p>
+            {% endif %}
+        {% endif %}
+        <p>piqlFilms: {{ reel }} reels</p>
+
     </div>
 </div>
 {% endblock %}}

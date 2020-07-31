@@ -79,6 +79,7 @@ h3 {
     float: right;
     background-color: #E05F2E;
     border-color: #E05F2E;
+    margin-bottom: 40px;
 }
 
 .top-menu, .top-menu:hover {
@@ -106,3 +107,4 @@ h3 {
 .signup{
     color: #E05F2E;
 }
+
