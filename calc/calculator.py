@@ -7,7 +7,7 @@ from PyInstaller.utils.hooks import collect_data_files
 # datas = collect_data_files('openpyxl')
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(THIS_FOLDER, 'static/piql_prices.xlsx')
+my_file = os.path.join(THIS_FOLDER, 'static/calc/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 
@@ -91,7 +91,7 @@ def offline_type(payment, type, data_offline, pages, layout):
 
 
 def piqlfilm(data, pages):
-    digital_reel = data / 120
+    digital_reel = data / 115
     visual_reel = pages / 65000
     reel = int(digital_reel + visual_reel)
     return reel
