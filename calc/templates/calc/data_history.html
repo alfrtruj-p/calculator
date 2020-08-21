@@ -11,7 +11,7 @@
         <div class="date">
             <p>Created: {{ quote.created_date }}</p>
         </div>
-        <h2><a href="{% url 'data_quote' pk=quote.pk %}">{{ quote.customer_name }}</a></h2>
+        <h4><a href="{% url 'data_quote' pk=quote.pk %}">{{ quote.customer_name }}</a></h4>
         <p>{{ quote.comment|linebreaksbr }}</p>
     </div>
     <hr>

@@ -30,6 +30,9 @@
         <p>Comment: {{ quote.comment|linebreaksbr }}</p>
         <br>
         <hr>
+    </div>
+
+    <h5>Prices:</h5>
     <div class=" result">
         {% if quote.payment == 'only_piqlfilm' %}
             <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ price }} euros</p>

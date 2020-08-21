@@ -1,4 +1,44 @@
-.page-header {
+
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #E05F2E;
+}
+
+.navbar-brand mr-4 {
+    font-size: 30px;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+
+/*.page-header {
     background-color: #E05F2E;
     margin-top: 0;
     padding: 10px 10px 10px 10px;
@@ -29,7 +69,7 @@ body {
     font-family: Gill Sans MT;
     line-height: 1.5em;
     font-weight: 400;
-}
+}*/
 
 .image img {
     max-width: 100%;
@@ -53,18 +93,18 @@ h3 {
    margin-bottom: 60px;
 }
 
-.quote h2 a {
+.quote h4 a {
    color: #5E4651;
    text-decoration: none;
 }
 
-.my_quote {
-    font-size: 14pt;
-    padding: 20px 0px 0px 0px
+.my_quote, .result {
+    font-size: 12pt;
+
 }
 
 .client {
-    font-size: 20pt;
+    font-size: 16pt;
 }
 
 .input-form textarea, input {
@@ -75,20 +115,20 @@ h3 {
     float: left;
 }
 
-.btn-primary {
+.btn-primary, .btn-primary:hover {
     float: right;
     background-color: #E05F2E;
     border-color: #E05F2E;
     margin-bottom: 40px;
 }
 
-.top-menu, .top-menu:hover {
+/*.top-menu, .top-menu:hover {
     color: #ffffff;
     float: right;
     font-size: 26pt;
     margin-right: 20px;
     padding: 20px;
-}
+}*/
 
 .fa-edit::before {
     color: #E05F2E;
@@ -97,14 +137,19 @@ h3 {
 
 .fa-trash-alt::before {
     color: #E05F2E;
-    padding: 0px 400px 0px 0px;
+    padding: 0px 100px 0px 0px;
 }
 
 .login {
     width: 45%;
 }
 
-.signup{
+.signup, .signup:hover {
     color: #E05F2E;
 }
+
+.list-group a {
+    color: #5E4651;
+}
+
 
