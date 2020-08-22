@@ -117,10 +117,10 @@ h3 {
 }
 
 .btn-primary, .btn-primary:hover {
-    float: right;
+
     background-color: #E05F2E;
     border-color: #E05F2E;
-    margin-bottom: 40px;
+
 }
 
 /*.top-menu, .top-menu:hover {
@@ -131,14 +131,16 @@ h3 {
     padding: 20px;
 }*/
 
-.fa-edit::before {
+.fa-edit {
     color: #E05F2E;
     padding: 0px 15px 0px 0px;
+    float: right;
 }
 
-.fa-trash-alt::before {
+.fa-trash-alt {
     color: #E05F2E;
-    padding: 0px 100px 0px 0px;
+    padding: 0px 15px 0px 0px;
+    float: right;
 }
 
 .login {

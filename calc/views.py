@@ -13,6 +13,7 @@ from .models import Input
 
 def data_history(request):
     quotes = Input.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
+    # paginated_by = 6
     return render(request, 'calc/data_history.html', {'quotes': quotes})
 
 

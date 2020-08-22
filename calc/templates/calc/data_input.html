@@ -1,14 +1,27 @@
 {% extends 'calc/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}Piql Calculator{% endblock %}
 
 {% block content %}
 
     <h3>New Quote</h3>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+
+
+    <!--<h3>New Quote</h3>
     <form method="post" class="input-form">
         {% csrf_token %}
         {{ form.as_p }}
-    <button type="submit" class="btn btn-primary" style="margin-bottom:40px">SAVE</button>
-    </form>
+    <button type="submit" class="btn btn-primary">SAVE</button>
+    </form>-->
 
 {% endblock %}
