@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
+from django.core.paginator import Paginator
 from calc import calculator
 
 from .forms import InputForm, UserForm
@@ -13,8 +14,10 @@ from .models import Input
 
 def data_history(request):
     quotes = Input.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
-    # paginated_by = 6
-    return render(request, 'calc/data_history.html', {'quotes': quotes})
+    paginator = Paginator(quotes, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'calc/data_history.html', {'quotes': quotes, 'page_obj': page_obj})
 
 
 def data_quote(request, pk):

@@ -1,13 +1,23 @@
 {% extends 'calc/base.html' %}
-
+{% load crispy_forms_tags %}
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <h3>Login</h3>
-    <form method="post" class="login">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'signup' %}" class="signup">Sign Up</a></p>
+    <h3>Log In</h3>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Login</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Need An Account? <a class="ml-2" href="{% url 'signup' %}">Sign Up Now</a>
+            </small>
+        </div>
+    </div>
+
 {% endblock %}

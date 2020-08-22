@@ -1,14 +1,22 @@
 {% extends 'calc/base.html' %}
-
 {% block title %}Signup{% endblock %}
-
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="panel panel-default" style="width: 450px">
-    <h3 style="text-align: left; font-family: sans-serif">Signup to Piql Calculator.</h3>
-    <div class="pannel-body">
-        {% crispy form %}
+    <h3>Sign Up to Piql Calculator</h3>
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="{% url 'login' %}">Log In</a>
+            </small>
+        </div>
     </div>
-</div>
+
 {% endblock %}

@@ -35,42 +35,7 @@ ul {
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
-
 }
-
-
-/*.page-header {
-    background-color: #E05F2E;
-    margin-top: 0;
-    padding: 10px 10px 10px 10px;
-    font-family: Gill Sans MT;
-}
-
-.page-header h1 a{
-    color: #ffffff;
-    font-size: 36pt;
-    text-decoration: none;
-    margin-left: 40px;
-}
-
-.submenu h5 a {
-    color: #ffffff;
-    float: right;
-    margin-right: 30px;
-    padding-top: 18px;
-    text-decoration: none;
-}
-
-.container {
-    margin-left: 40px;
-
-}
-
-body {
-    font-family: Gill Sans MT;
-    line-height: 1.5em;
-    font-weight: 400;
-}*/
 
 .image img {
     max-width: 100%;
@@ -81,55 +46,15 @@ h3 {
     padding: 20px 0px 20px 0px;
 }
 
-.date {
-    color: #828282;
-}
-
-.edit a {
-    float: right;
-    padding: 24px 0px 0px 0px;
-}
-
-.quote {
-   margin-bottom: 40px;
-}
-
-.quote h4 a {
-   color: #5E4651;
-   text-decoration: none;
-}
-
 .my_quote, .result {
     font-size: 12pt;
-
-}
-
-.client {
-    font-size: 16pt;
-}
-
-.input-form textarea, input {
-    width: 100%;
-}
-
-.input-form {
-    float: left;
+    padding-top: 10px;
 }
 
 .btn-primary, .btn-primary:hover {
-
     background-color: #E05F2E;
     border-color: #E05F2E;
-
 }
-
-/*.top-menu, .top-menu:hover {
-    color: #ffffff;
-    float: right;
-    font-size: 26pt;
-    margin-right: 20px;
-    padding: 20px;
-}*/
 
 .fa-edit {
     color: #E05F2E;
@@ -143,35 +68,14 @@ h3 {
     float: right;
 }
 
-.login {
-    width: 45%;
-}
-
-.signup, .signup:hover {
+.ml-2, .ml-2:hover {
     color: #E05F2E;
+    text-decoration: none;
 }
 
 .list-group a {
     color: #5E4651;
-}
-
-.article-title {
-  color: #444444;
-}
-
-a.article-title:hover {
-  color: #428bca;
-  text-decoration: none;
-}
-
-.article-content {
-  white-space: pre-line;
-}
-
-.article-img {
-  height: 65px;
-  width: 65px;
-  margin-right: 16px;
+    text-decoration: none;
 }
 
 .article-metadata {
@@ -191,4 +95,18 @@ a.article-title:hover {
   vertical-align: middle;
 }
 
+.btn-info, .btn-info:hover {
+    background-color: #E05F2E;
+    border-color: #E05F2E;
+}
+
+.btn-outline-info {
+    border-color: #E05F2E;
+    color: #E05F2E;
+}
+
+.btn-outline-info:hover {
+    background-color: #E05F2E;
+    border-color: #E05F2E;
+}
 
