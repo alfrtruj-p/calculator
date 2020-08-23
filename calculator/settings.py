@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'calc',
     'crispy_forms',
+    'mathfilters',
 ]
 
 MIDDLEWARE = [

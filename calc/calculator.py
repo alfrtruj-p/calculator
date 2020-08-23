@@ -90,6 +90,28 @@ def offline_type(payment, type, data_offline, pages, layout):
     return piqlfilm_price
 
 
+def onl_price(data_online, payment):
+    piqlconnect_price = 0
+    online_p = 0
+    if data_online == 0:
+        pass
+    else:
+        if payment == 'yearly':
+            piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_yearly')
+            if data_online < 1000:
+                online_p = 0
+            else:
+                online_p = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_yearly_gb')
+        elif payment == 'monthly':
+            piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_monthly')
+            if data_online < 1000:
+                online_p = 0
+            else:
+                online_p = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_monthly_gb')
+    online_price = piqlconnect_price + online_p
+    return online_price
+
+
 def piqlfilm(data, pages):
     digital_reel = data / 115
     visual_reel = pages / 65000
@@ -101,21 +123,39 @@ def storage_prices(type, data_offline, data_online, pages, layout, payment):
     online_price = 0
     piqlconnect_price = 0
     piqlfilm_price = 0
-    if payment == 'only_piqlfilm':
+
+    if data_online > 0:
+        online_price = onl_price(data_online, payment)
+        if data_offline > 0 or pages > 0:
+            piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
+    else:
+        payment = 'only_piqlfilm'
         piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_only_film')
         piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
-    elif payment == 'yearly':
-        piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_yearly')
-        online_price = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_yearly_gb')
-        if data_offline > 0 or pages > 0:
-            piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
-    elif payment == 'monthly':
-        piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_monthly')
-        online_price = (data_online - 1000) * prices.price_calculation(pricing, 'online_storage_monthly_gb')
-        if data_offline > 0 or pages > 0:
-            piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
     preservation_price = piqlconnect_price + online_price + piqlfilm_price
-    print(preservation_price)
     return preservation_price
+
+
+def awa(decision, entity, storage, reel):
+    fee = 0
+    storage_awa = 0
+    reg_fee = prices.price_calculation(pricing, 'awa_registration_fee')
+    mgmt_fee = prices.price_calculation(pricing, 'awa_management_yearly')
+    if decision == 'no':
+        awa_price = 0
+    else:
+        if entity == 'public':
+            fee = reg_fee + prices.price_calculation(pricing, 'awa_contribution_public')
+        elif entity == 'private':
+            fee = reg_fee + prices.price_calculation(pricing, 'awa_contribution_private')
+        if storage == '5':
+            storage_awa = mgmt_fee + (prices.price_calculation(pricing, 'awa_reel_yearly_5y') * reel)
+        elif storage == '10':
+            storage_awa = mgmt_fee + (prices.price_calculation(pricing, 'awa_reel_yearly_10y') * reel)
+        elif storage == '10':
+            storage_awa = mgmt_fee + (prices.price_calculation(pricing, 'awa_reel_yearly_25y') * reel)
+        awa_price = fee + storage_awa
+    return awa_price
+
 
 

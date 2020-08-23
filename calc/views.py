@@ -24,14 +24,14 @@ def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
     price = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                       quote.layout, quote.payment)
-    offline = calculator.offline_type(quote.payment, quote.type, quote.offline_data, quote.pages, quote.layout)
+    online = calculator.onl_price(quote.online_data, quote.payment)
+    offline = price - online
     if offline == 0:
-        online = price
         reel = 0
     else:
-        online = price - offline
         reel = calculator.piqlfilm(quote.offline_data, quote.pages)
-    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel}
+    price_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
+    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel, 'price_awa': price_awa}
     return render(request, 'calc/data_quote.html', args)
 
 

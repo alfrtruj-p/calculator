@@ -1,5 +1,5 @@
 {% extends 'calc/base.html' %}
-
+{% load mathfilters %}
 {% block title %}{{ quote.customer_name }}{% endblock %}
 
 {% block content %}
@@ -18,39 +18,94 @@
               <a href="{% url 'data_edit' pk=quote.pk %}"><i class="fas fa-edit"></i></a>
             </div>
             <div class="my_quote">
-                <p>Online data (GB): {{ quote.online_data }}</p>
+                <p>Type of offline preservation: {{ quote.type }}</p>
                 <p>Offline data (GB): {{ quote.offline_data }}</p>
                 <p>Offline visual (pages): {{ quote.pages }}</p>
-                <p>Payment: {{ quote.payment }}</p>
-                <p>Comment: {{ quote.comment|linebreaksbr }}</p>
+                {% if quote.pages == 0 %}
+                    <p>Pages per frame: 0</p>
+                {% else %}
+                    <p>Pages per frame: {{ quote.layout }}</p>
+                {% endif %}
+                <hr>
+                <p>Online data (GB): {{ quote.online_data }}</p>
+                {% if quote.online_data == 0 %}
+                    <p>Payment: only_piqlfilm</p>
+                {% else %}
+                    <p>Payment: {{ quote.payment }}</p>
+                {% endif %}
+                <hr>
+                <p>Comments: {{ quote.comment|linebreaksbr }}</p>
             </div>
           </div>
     </article>
 
-    <h4 style="color: #828282">Prices:</h4>
+    <h5 style="color: #828282">Prices:</h5>
 
     <article class="media content-section">
 
           <div class="media-body">
             <div class=" result">
-            {% if quote.payment == 'only_piqlfilm' %}
+            {% if quote.online_data == 0 %}
                 <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ price }} euros</p>
+                <p>piqlFilms: {{ reel }} reels</p>
+                <hr>
+
+                <p>Storage in AWA for {{ reel }} reel(s) is: {{ quote.awa_price }} euros</p>
+                <hr>
+
+                {% if quote.awa == 'no' %}
+                    <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
+                {% else %}
+                    <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
+                {% endif %}
             {% elif quote.payment == 'yearly' %}
-                <p>Online storage per year for {{ quote.online_data }} GB is: {{ online }} euros</p>
                 <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ offline }} euros</p>
+                <p>piqlFilms: {{ reel }} reels</p>
+                <hr>
+
+                <p>Online storage per year for {{ quote.online_data }} GB is: {{ online }} euros</p>
+                <hr>
+
+                <p>Storage in AWA for {{ reel }} reel(s) is: {{ price_awa }} euros</p>
+                <hr>
+
+                {% if quote.awa == 'no' %}
+                    <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
+                {% else %}
+                    <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
+                {% endif %}
+                <hr>
+
+                <p style="color: #828282"><strong>Payment summary:</strong></p>
                 <p>The price for the first year is {{ price }} euros</p>
                 {% if quote.offline_data or quote.pages > 0 %}
                 <p>The price from second year is {{ online }} euros</p>
                 {% endif %}
             {% elif quote.payment == 'monthly' %}
-                <p>Online storage per month for {{ quote.online_data }} GB is: {{ online }} euros</p>
                 <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ offline }} euros</p>
+                <p>piqlFilms: {{ reel }} reels</p>
+                <hr>
+
+                <p>Online storage per month for {{ quote.online_data }} GB is: {{ online }} euros</p>
+                <hr>
+
+                <p>Storage in AWA for {{ reel }} reel(s) is: {{ quote.awa_price }} euros</p>
+                <hr>
+
+                {% if quote.awa == 'no' %}
+                    <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
+                {% else %}
+                    <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
+                {% endif %}
+                <hr>
+
+                <p style="color: #828282"><strong>Payment summary:</strong></p>
                 <p>The price for the first month is {{ price }} euros</p>
                 {% if quote.offline_data or quote.pages > 0 %}
                 <p>The price from second month is {{ online }} euros</p>
                 {% endif %}
             {% endif %}
-            <p>piqlFilms: {{ reel }} reels</p>
+
             </div>
           </div>
     </article>
