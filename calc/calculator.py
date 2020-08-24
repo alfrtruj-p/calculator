@@ -143,6 +143,8 @@ def awa(decision, entity, storage, reel):
     mgmt_fee = prices.price_calculation(pricing, 'awa_management_yearly')
     if decision == 'no':
         awa_price = 0
+    elif reel == 0:
+        awa_price = 0
     else:
         if entity == 'public':
             fee = reg_fee + prices.price_calculation(pricing, 'awa_contribution_public')
@@ -155,7 +157,24 @@ def awa(decision, entity, storage, reel):
         elif storage == '10':
             storage_awa = mgmt_fee + (prices.price_calculation(pricing, 'awa_reel_yearly_25y') * reel)
         awa_price = fee + storage_awa
-    return awa_price
+    return awa_price, fee, storage_awa
+
+
+"""def reader(piqlreader, service):
+    support = 0
+    installation = prices.price_calculation(pricing, 'piqlReader_installation')
+    if piqlreader == 'no':
+        piqlreader_price = 0
+    else:
+        piqlreader = prices.price_calculation(pricing, 'piqlReader')
+        if service == 'platinum':
+            support = prices.price_calculation(prices, 'piqlReader_platinum_service')
+        elif service == 'gold':
+            support = prices.price_calculation(pricing, 'piqlReader_gold_service')
+        piqlreader_price = piqlreader + installation + support
+    return piqlreader_price, piqlreader, installation, support"""
+
+
 
 
 

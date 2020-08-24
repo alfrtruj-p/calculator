@@ -30,8 +30,14 @@ def data_quote(request, pk):
         reel = 0
     else:
         reel = calculator.piqlfilm(quote.offline_data, quote.pages)
-    price_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
-    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel, 'price_awa': price_awa}
+    price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
+    # price_piqlreader, piqlreader, installation, support = calculator.reader(quote.piqlreader, quote.service)
+    first_year_price = price + price_awa + price_piqlreader
+    second_year_price = online + storage_awa + support
+    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
+            'price_awa': price_awa, 'fee': fee, 'storage_awa': storage_awa, 'first_year_price': first_year_price,
+            'second_year_price': second_year_price, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
+            'installation': installation, 'support': support}
     return render(request, 'calc/data_quote.html', args)
 
 

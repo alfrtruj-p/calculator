@@ -23,8 +23,8 @@ class Input(models.Model):
     comment = models.TextField(verbose_name='Comments')
     created_date = models.DateTimeField(default=timezone.now)
     awa = models.CharField(default='no', blank=True, max_length=40, choices=DECISION, verbose_name='Storage in Arctic World Archive')
-    awa_contribution = models.CharField(max_length=40, choices=CONTRIBUTION, verbose_name='Entity')
-    awa_storage = models.CharField(max_length=40, choices=STORAGE, verbose_name='AWA Storage')
+    awa_contribution = models.CharField(default='public', max_length=40, choices=CONTRIBUTION, verbose_name='Entity')
+    awa_storage = models.CharField(default='5', max_length=40, choices=STORAGE, verbose_name='AWA Storage')
     piqlreader = models.CharField(default='no', blank=True, max_length=40, choices=DECISION, verbose_name='piqlReader')
     service = models.CharField(blank=True, max_length=40, choices=SERVICE, verbose_name='Service agreement')
 
