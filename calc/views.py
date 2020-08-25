@@ -31,13 +31,14 @@ def data_quote(request, pk):
     else:
         reel = calculator.piqlfilm(quote.offline_data, quote.pages)
     price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
-    # price_piqlreader, piqlreader, installation, support = calculator.reader(quote.piqlreader, quote.service)
-    first_year_price = price + price_awa + price_piqlreader
+    price_piqlreader, piqlreader, qty, installation, support = calculator.reader(quote.piqlreader, quote.quantity, quote.service)
+    price_prof_serv, days = calculator.prof_serv(quote.consultancy, quote.days)
+    first_year_price = price + price_awa + price_piqlreader + price_prof_serv
     second_year_price = online + storage_awa + support
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
             'price_awa': price_awa, 'fee': fee, 'storage_awa': storage_awa, 'first_year_price': first_year_price,
             'second_year_price': second_year_price, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
-            'installation': installation, 'support': support}
+            'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv, 'days': days}
     return render(request, 'calc/data_quote.html', args)
 
 

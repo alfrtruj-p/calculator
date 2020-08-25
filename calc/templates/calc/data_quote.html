@@ -51,8 +51,13 @@
                 {% endif %}
 
                 {% if quote.piqlreader == 'yes' %}
-                    <p>piqlReader included</p>
+                    <p>{{ qty }} piqlReader(s) included</p>
                     <p>Service support: {{ quote.service }} </p>
+                    <hr>
+                {% endif %}
+
+                {% if quote.consultancy == 'yes' %}
+                    <p>{{ days }} day(s) of professional services included</p>
                     <hr>
                 {% endif %}
 
@@ -61,7 +66,7 @@
           </div>
     </article>
 
-    <h5 style="color: #828282">Prices:</h5>
+    <h5 style="color: #E05F2E">Prices:</h5>
 
     <article class="media content-section">
 
@@ -80,18 +85,32 @@
                         <hr>
                     {% endif %}
 
-                    <p style="color: #828282"><strong>Payment summary:</strong></p>
-                    <p>The price for the first year is {{ first_year_price }} euros</p>
-                    {% if quote.awa == 'no' %}
-                        <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
-                    {% else %}
-                        <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
+                    {% if quote.piqlreader == 'yes' %}
+                        <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>
+                        <p>Including:</p>
+                        <p>Installation and training: {{ installation }} euros</p>
+                        <p>{{ quote.service }} service support: {{ support }} euros per year</p>
                         <hr>
-                        <p>The price from second year is {{ second_year_price }} euros</p>
                     {% endif %}
-                    <hr>
+
+                    {% if quote.consultancy == 'yes' %}
+                        <p>Professional services for {{ days }} days is: {{ price_prof_serv }} euros</p>
+                        <hr>
+                    {% endif %}
+
+                    <p style="color: #E05F2E"><strong>Payment summary:</strong></p>
+                    <div style="color: #828282">
+                        <p><strong>The price for the first year is {{ first_year_price }} euros</strong></p>
+                        {% if quote.awa == 'no' %}
+                            <p><strong>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</strong></p>
+                        {% else %}
+                            <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
+                        {% endif %}
+                         <hr>
+                        <p><strong>The price from second year is {{ second_year_price }} euros per year</strong></p>
+                    </div>
                 {% else %}
-                    <p>Incorrect "online payment", please select "Yearly" or "Monthly"</p>
+                    <p style="color: #828282"><strong>Incorrect "online payment", please select "Yearly" or "Monthly"</strong></p>
                 {% endif %}
 
             {% elif quote.payment == 'yearly' %}
@@ -100,7 +119,7 @@
                     <p>piqlFilms: {{ reel }} reels</p>
                     <hr>
                 {% endif %}
-                <p>Online storage per year for {{ quote.online_data }} GB is: {{ online }} euros</p>
+                <p>Online storage for {{ quote.online_data }} GB is: {{ online }} euros per year</p>
                 <hr>
                 {% if quote.awa == 'yes' %}
                     {% if quote.offline_data or quote.pages %}
@@ -111,27 +130,39 @@
                         <hr>
                     {% endif %}
                 {% endif %}
-
-
-                <p style="color: #828282"><strong>Payment summary:</strong></p>
-                <p>The price for the first year is {{ first_year_price }} euros</p>
-                {% if quote.offline_data or quote.pages %}
-                    {% if quote.awa == 'no' %}
-                        <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
-                    {% else %}
-                        <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
-                    {% endif %}
-                <hr>
+                {% if quote.piqlreader == 'yes' %}
+                        <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>
+                        <p>Including:</p>
+                        <p>Installation and training: {{ installation }} euros</p>
+                        <p>{{ quote.service }} service support: {{ support }} euros per year</p>
+                        <hr>
                 {% endif %}
-                <p>The price from second year is {{ second_year_price }} euros</p>
 
+                {% if quote.consultancy == 'yes' %}
+                        <p>Professional services for {{ days }} days is: {{ price_prof_serv }} euros </p>
+                        <hr>
+                {% endif %}
+
+                <p style="color: #E05F2E"><strong>Payment summary:</strong></p>
+                <div style="color: #828282">
+                    <p><strong>The price for the first year is {{ first_year_price }} euros</strong></p>
+                    {% if quote.offline_data or quote.pages %}
+                        {% if quote.awa == 'no' %}
+                            <p><strong>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</strong></p>
+                        {% else %}
+                            <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
+                        {% endif %}
+                    {% endif %}
+                    <hr>
+                    <p><strong>The price from second year is {{ second_year_price }} euros per year</strong></p>
+                </div>
             {% elif quote.payment == 'monthly' %}
                 {% if quote.offline_data or quote.pages %}
                     <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ offline }} euros</p>
                     <p>piqlFilms: {{ reel }} reels</p>
                     <hr>
                 {% endif %}
-                <p>Online storage per month for {{ quote.online_data }} GB is: {{ online }} euros</p>
+                <p>Online storage for {{ quote.online_data }} GB is: {{ online }} euros per month</p>
                 <hr>
                 {% if quote.awa == 'yes' %}
                     <p>Storage in AWA for {{ reel }} reel(s) is: {{ price_awa }} euros</p>
@@ -140,19 +171,32 @@
                     <p>Management fee and AWA storage for: {{ storage_awa }} euros per year</p>
                     <hr>
                 {% endif %}
-
-
-                <p style="color: #828282"><strong>Payment summary:</strong></p>
-                <p>The price for the first month is {{ first_year_price }} euros</p>
-                {% if quote.offline_data or quote.pages %}
-                    {% if quote.awa == 'no' %}
-                        <p>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</p>
-                    {% else %}
-                        <p>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</p>
-                    {% endif %}
-                <hr>
+                {% if quote.piqlreader == 'yes' %}
+                        <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>
+                        <p>Including:</p>
+                        <p>Installation and training: {{ installation }} euros</p>
+                        <p>{{ quote.service }} service support: {{ support }} euros per year</p>
+                        <hr>
                 {% endif %}
-                 <p>The price from second month is {{ second_year_price }} euros</p>
+
+                {% if quote.consultancy == 'yes' %}
+                        <p>Professional services for {{ days }} days is: {{ price_prof_serv }} euros</p>
+                        <hr>
+                {% endif %}
+
+                <p style="color: #E05F2E"><strong>Payment summary:</strong></p>
+                <div style="color: #828282">
+                    <p><strong>The price for the first month is {{ first_year_price }} euros</strong></p>
+                    {% if quote.offline_data or quote.pages %}
+                        {% if quote.awa == 'no' %}
+                            <p><strong>Shipment cost (30 euros/reel): {{ reel|mul:30 }} euros</strong></p>
+                        {% else %}
+                            <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
+                        {% endif %}
+                    {% endif %}
+                    <hr>
+                    <p><strong>The price from second month is {{ second_year_price }} euros per month</strong></p>
+                </div>
             {% endif %}
 
             </div>

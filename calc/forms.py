@@ -24,9 +24,10 @@ class InputForm(forms.ModelForm):
         awa_storage = forms.ChoiceField(widget=forms.Select(choices=STORAGE))
         piqlreader = forms.ChoiceField(widget=forms.Select(choices=DECISION))
         service = forms.ChoiceField(widget=forms.Select(choices=SERVICE))
+        consultancy = forms.ChoiceField(widget=forms.Select(choices=DECISION))
         comment = forms.CharField(widget=forms.Textarea(attrs={'rows': 5, 'cols': 40}))
         fields = ['customer_name', 'type', 'offline_data', 'pages', 'layout', 'online_data', 'payment',
-                  'awa', 'awa_contribution', 'awa_storage', 'piqlreader', 'service', 'comment']
+                  'awa', 'awa_contribution', 'awa_storage', 'piqlreader', 'quantity', 'service', 'consultancy', 'days', 'comment']
 
 
 class UserForm(forms.ModelForm):

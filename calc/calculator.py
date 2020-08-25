@@ -160,21 +160,27 @@ def awa(decision, entity, storage, reel):
     return awa_price, fee, storage_awa
 
 
-"""def reader(piqlreader, service):
+def reader(piqlreader, qty, service):
     support = 0
     installation = prices.price_calculation(pricing, 'piqlReader_installation')
     if piqlreader == 'no':
         piqlreader_price = 0
     else:
-        piqlreader = prices.price_calculation(pricing, 'piqlReader')
+        piqlreader = qty * prices.price_calculation(pricing, 'piqlReader')
         if service == 'platinum':
-            support = prices.price_calculation(prices, 'piqlReader_platinum_service')
+            support = prices.price_calculation(pricing, 'piqlReader_platinum_service')
         elif service == 'gold':
             support = prices.price_calculation(pricing, 'piqlReader_gold_service')
         piqlreader_price = piqlreader + installation + support
-    return piqlreader_price, piqlreader, installation, support"""
+    return piqlreader_price, piqlreader, qty, installation, support
 
 
+def prof_serv(consultacy, days):
+    if consultacy == 'yes':
+        prof_serv_price = days * prices.price_calculation(pricing, 'professional_services_day')
+    else:
+        prof_serv_price = 0
+    return prof_serv_price, days
 
 
 

@@ -26,7 +26,10 @@ class Input(models.Model):
     awa_contribution = models.CharField(default='public', max_length=40, choices=CONTRIBUTION, verbose_name='Entity')
     awa_storage = models.CharField(default='5', max_length=40, choices=STORAGE, verbose_name='AWA Storage')
     piqlreader = models.CharField(default='no', blank=True, max_length=40, choices=DECISION, verbose_name='piqlReader')
-    service = models.CharField(blank=True, max_length=40, choices=SERVICE, verbose_name='Service agreement')
+    quantity = models.IntegerField(default='1', blank=True, verbose_name='Quantity of piqlReaders')
+    service = models.CharField(default='gold', blank=True, max_length=40, choices=SERVICE, verbose_name='Service agreement')
+    consultancy = models.CharField(default='no', blank=True, max_length=40, choices=DECISION, verbose_name='Professional services')
+    days = models.IntegerField(default='1', blank=True, verbose_name='How many days?')
 
     def __str__(self):
         return self.customer_name
