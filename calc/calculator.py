@@ -133,7 +133,7 @@ def storage_prices(type, data_offline, data_online, pages, layout, payment):
         piqlconnect_price = prices.price_calculation(pricing, 'piqlConnect_only_film')
         piqlfilm_price = offline_type(payment, type, data_offline, pages, layout)
     preservation_price = piqlconnect_price + online_price + piqlfilm_price
-    return preservation_price
+    return preservation_price, online_price, piqlfilm_price
 
 
 def awa(decision, entity, storage, reel):
@@ -182,5 +182,15 @@ def prof_serv(consultacy, days):
         prof_serv_price = 0
     return prof_serv_price, days
 
+
+def print(fecha):
+    FOLDER = os.path.dirname(os.path.abspath(__file__))
+    my_order = os.path.join(FOLDER, 'static/calc/piql_order_form.xlsx')
+    wb2 = xl.load_workbook(my_order)
+    sheet_order = wb2['order']
+
+    date = sheet_order.cell(4, 9)
+    date.value = fecha
+    wb2.save(my_order)
 
 

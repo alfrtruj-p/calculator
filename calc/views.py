@@ -22,10 +22,8 @@ def data_history(request):
 
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+    price, online, offline = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                       quote.layout, quote.payment)
-    online = calculator.onl_price(quote.online_data, quote.payment)
-    offline = price - online
     if offline == 0:
         reel = 0
     else:
@@ -35,10 +33,12 @@ def data_quote(request, pk):
     price_prof_serv, days = calculator.prof_serv(quote.consultancy, quote.days)
     first_year_price = price + price_awa + price_piqlreader + price_prof_serv
     second_year_price = online + storage_awa + support
+    order_form = calculator.print(quote.created_date)
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
             'price_awa': price_awa, 'fee': fee, 'storage_awa': storage_awa, 'first_year_price': first_year_price,
             'second_year_price': second_year_price, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
-            'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv, 'days': days}
+            'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv,
+            'days': days, 'order_form': order_form}
     return render(request, 'calc/data_quote.html', args)
 
 

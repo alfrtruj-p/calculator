@@ -34,12 +34,10 @@
             <!-- Navbar Right Side -->
             <div class="navbar-nav">
               {% if user.is_authenticated %}
-                <!--<a class="nav-item nav-link" href="{% url 'data_input' %}">New Quote</a>-->
                 <a class="nav-item nav-link" href="{% url 'data_history' %}">Hi, {{ user.username }}</a>
                 <a class="nav-item nav-link" href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i></a>
               {% else %}
                 <a class="nav-item nav-link" href="{% url 'login' %}"><i class="fas fa-sign-in-alt"></i></a>
-                <!--<a class="nav-item nav-link" href="{% url 'signup' %}">Register</a>-->
               {% endif %}
             </div>
           </div>
@@ -60,7 +58,7 @@
                     <li class="list-group-item list-group-item-light" ><a href="http://www.piql.com">Piql site</a></li>
                     <li class="list-group-item list-group-item-light"><a href="https://www.arcticworldarchive.org/">AWA site</a></li>
                     <li class="list-group-item list-group-item-light"><a href="http://demo.piqlconnect.com/login">piqlConnect demo</a></li>
-                    <!--<li class="list-group-item list-group-item-light">etc</li>-->
+                    <li class="list-group-item list-group-item-light"><a href="https://forms.office.com/Pages/ResponsePage.aspx?id=k4yqUSxZRkSwWH0R7QU1A3pm4lZOZiVDhXIaxSEWbBVUM1NPUEw3OTcwMTNLQTcwVzNNOVFST1NEOC4u">Production Order Form</a></li>
                   </ul>
 
               </div>
