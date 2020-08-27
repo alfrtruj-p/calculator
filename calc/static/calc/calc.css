@@ -68,6 +68,12 @@ h3 {
     float: right;
 }
 
+.fa-file-excel {
+    color: #E05F2E;
+    padding: 0px 15px 0px 0px;
+    float: right;
+}
+
 .ml-2, .ml-2:hover {
     color: #E05F2E;
     text-decoration: none;

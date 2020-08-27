@@ -5,6 +5,7 @@ urlpatterns = [
     path('quote/input/', views.data_input, name='data_input'),
     path('quote/<int:pk>/', views.data_quote, name='data_quote'),
     path('quote/<int:pk>/edit/', views.data_edit, name='data_edit'),
+    path('quote/<int:pk>/order/', views.data_order, name='data_order'),
     path('', views.data_history, name='data_history'),
     path('quote/<int:pk>/delete/', views.quote_delete, name='quote_delete'),
     path('signup/', views.signup, name='signup'),
