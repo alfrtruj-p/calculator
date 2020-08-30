@@ -1,5 +1,7 @@
+import math
 import os
 import openpyxl as xl
+from openpyxl import load_workbook
 from calc import prices
 
 from PyInstaller.utils.hooks import collect_data_files
@@ -115,9 +117,9 @@ def onl_price(data_online, payment):
 
 
 def piqlfilm(data, pages, layout):
-    digital_reel = data / 115
+    digital_reel = data / 120
     visual_reel = pages / int(layout) / 65000
-    reel = int(digital_reel + visual_reel)
+    reel = math.ceil(digital_reel + visual_reel)
     return reel
 
 
@@ -216,8 +218,6 @@ def print_order(created, customer, comments, offline, visual, layout, online, pa
     gold = prices.price_calculation(pricing, 'piqlReader_gold_service')
     platinum = prices.price_calculation(pricing, 'piqlReader_platinum_service')
 
-
-
     if online == 0:
         piqlconnect_qty = sheet_order.cell(18, 6)
         piqlconnect_qty.value = 1
@@ -307,13 +307,13 @@ def print_order(created, customer, comments, offline, visual, layout, online, pa
         mgmt.value = management
         storage_pr = sheet_order.cell(27, 7)
         storage_pr_t = sheet_order.cell(27, 8)
-        if storage == 5:
+        if storage == '5':
             storage_pr.value = five
             storage_pr_t.value = five * reel
-        if storage == 10:
+        if storage == '10':
             storage_pr.value = ten
             storage_pr_t.value = ten * reel
-        if storage == 25:
+        if storage == '25':
             storage_pr.value = twentyfive
             storage_pr_t.value = twentyfive * reel
 
@@ -369,4 +369,6 @@ def print_order(created, customer, comments, offline, visual, layout, online, pa
     second_year.value = total_2
 
     wb2.save(my_order)
+
+
 
