@@ -7,7 +7,7 @@ def price_table(service_prices, sheet):  # create a price table for a service (d
     return service_prices
 
 
-def price_calculation(service, option):
+def price(service, option):
     for i in service.keys():
         if option == i in service.keys():
             price = service.get(i)
@@ -22,7 +22,7 @@ def cost_table(service_cost, sheet):  # create a price table for a service (dict
     return service_cost
 
 
-def cost_calculation(service, option):
+def cost(service, option):
     for i in service.keys():
         if option == i in service.keys():
             price = service.get(i)
