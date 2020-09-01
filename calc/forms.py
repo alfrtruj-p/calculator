@@ -8,7 +8,7 @@ from .models import Input
 class InputForm(forms.ModelForm):
     class Meta:
         model = Input
-        PAY = [('yearly', 'Yearly'), ('monthly', 'Monthly'), ('only_piqlfilm', 'Only piqlFilm')]
+        PAY = [('yearly', 'Yearly'), ('monthly', 'Monthly'), ('only_piqlfilm', 'Only piqlFilm'), ('only_piqlreader', 'Only piqlReader')]
         TYPE = [('digital', 'Digital'), ('visual', 'Visual'), ('hybrid', 'Hybrid')]
         LAYOUT = [('1', '1 page'), ('2', '2 pages'), ('3', '3 pages'), ('4', '4 page'), ('6', '6 pages'),
                   ('10', '10 pages')]

@@ -198,8 +198,24 @@
                     <hr>
                     <p><strong>The price from second month is {{ second_year_price }} euros per month</strong></p>
                 </div>
-            {% endif %}
 
+            {% elif quote.payment == 'only_piqlreader' %}
+                {% if quote.piqlreader == 'yes' %}
+                    <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>
+                    <p>Including:</p>
+                    <p>Installation and training: {{ installation }} euros</p>
+                    <p>{{ quote.service }} service support: {{ support }} euros per year</p>
+                    <hr>
+
+                    <p style="color: #E05F2E"><strong>Payment summary:</strong></p>
+                    <div style="color: #828282">
+                        <p><strong>The price for the piqlReader is {{ first_year_price }} euros</strong></p>
+                        <p><strong>Shipment cost is calculated according to the destination</strong></p>
+                    </div>
+                {% else %}
+                    <p style="color: #828282"><strong>Incorrect input, Select "Yes" to the piqlReader option</strong></p>
+                {% endif %}
+            {% endif %}
             </div>
           </div>
     </article>

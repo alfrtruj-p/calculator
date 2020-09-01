@@ -10,8 +10,6 @@ import os
 from .forms import InputForm, UserForm
 from .models import Input
 
-# Create your views here.
-
 
 def data_history(request):
     quotes = Input.objects.filter(created_date__lte=timezone.now()).order_by('-created_date')
@@ -23,8 +21,8 @@ def data_history(request):
 
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, offline = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
-                                                       quote.layout, quote.payment)
+    price, online, offline = calculator.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+                                                    quote.layout, quote.payment)
 
     reel = calculator.piqlfilm(quote.offline_data, quote.pages, quote.layout)
     price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
@@ -42,8 +40,8 @@ def data_quote(request, pk):
 
 def data_order(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, offline = calculator.storage_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
-                                                       quote.layout, quote.payment)
+    price, online, offline = calculator.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+                                                    quote.layout, quote.payment)
 
     reel = calculator.piqlfilm(quote.offline_data, quote.pages, quote.layout)
     price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
@@ -55,8 +53,11 @@ def data_order(request, pk):
     order_form = calculator.print_order(quote.created_date, quote.customer_name, quote.comment, quote.offline_data,
                                         quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
                                         quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
-                                        quote.quantity, quote.service, first_year_price, second_year_price)
+                                        quote.piqlreader, quote.quantity, quote.service, first_year_price,
+                                        second_year_price)
+
     os.system('start "excel" "C:/Users/AlfredoTrujillo/PycharmProjects/calculator/calc/static/calc/piql_order_form.xlsx"')
+
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
             'price_awa': price_awa, 'fee': fee, 'storage_awa': storage_awa, 'first_year_price': first_year_price,
             'second_year_price': second_year_price, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
