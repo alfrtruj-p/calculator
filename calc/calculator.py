@@ -1,16 +1,16 @@
 import math
 import os
 import openpyxl as xl
-from calc import prices
+from calc import prices as pr
 
 
-THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(THIS_FOLDER, 'static/calc/piql_prices.xlsx')
+folder = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 
 table = {}
-prices.price_table(table, sheet)
+pr.price_table(table, sheet)
 
 
 def digital(data):
@@ -27,7 +27,7 @@ def digital(data):
             service = 'offline_digital_1001gb_5000gb'
         elif data > 5000:
             service = 'offline_digital_more_5001gb'
-        digital_price = prices.price(table, service)
+        digital_price = pr.price(table, service)
     return digital_price
 
 
@@ -46,7 +46,7 @@ def visual(layout):
         service = 'offline_visual_6pages_reel'
     elif layout == '10':
         service = 'offline_visual_8pages_up_reel'
-    visual_price = prices.price(table, service)
+    visual_price = pr.price(table, service)
     return visual_price
 
 
@@ -60,7 +60,7 @@ def digital_price(data, payment):
 def visual_price(pages, layout, payment):
     # calculating piqlFilm visual price minus free reel due to piqlConnect
     free_reel = 0 if payment == 'only_piqlfilm' else 65000 * int(layout)
-    film_vis_price = prices.price(table, 'offline_visual_less_reel') if (pages / int(layout)) < 65000 else (pages - free_reel) * visual(layout)
+    film_vis_price = pr.price(table, 'offline_visual_less_reel') if (pages / int(layout)) < 65000 else (pages - free_reel) * visual(layout)
     return film_vis_price
 
 
@@ -76,7 +76,7 @@ def offline(payment, type, data_offline, pages, layout):
         digital = digital_price(data_offline, payment)
         visual = visual_price(pages, layout, payment)
         if payment == 'yearly' or payment == 'monthly':
-            digital = digital + prices.price(table, 'offline_digital_less_reel')
+            digital = digital + pr.price(table, 'offline_digital_less_reel')
     piqlfilm_price = digital + visual
     return piqlfilm_price
 
@@ -89,11 +89,11 @@ def online(data, payment):
         pass
     else:
         if payment == 'yearly':
-            piqlconnect_price = prices.price(table, 'piqlConnect_yearly')
-            online_p = 0 if data < 1000 else (data - 1000) * prices.price(table, 'online_storage_yearly_gb')
+            piqlconnect_price = pr.price(table, 'piqlConnect_yearly')
+            online_p = 0 if data < 1000 else (data - 1000) * pr.price(table, 'online_storage_yearly_gb')
         elif payment == 'monthly':
-            piqlconnect_price = prices.price(table, 'piqlConnect_monthly')
-            online_p = 0 if data < 1000 else (data - 1000) * prices.price(table, 'online_storage_monthly_gb')
+            piqlconnect_price = pr.price(table, 'piqlConnect_monthly')
+            online_p = 0 if data < 1000 else (data - 1000) * pr.price(table, 'online_storage_monthly_gb')
     online_price = piqlconnect_price + online_p
     return online_price, piqlconnect_price, online_p
 
@@ -109,7 +109,7 @@ def piql_prices(type, data_offline, data_online, pages, layout, payment):
             film_price = offline(payment, type, data_offline, pages, layout)
     else:
         payment = 'only_piqlfilm'
-        piqlconnect_price = prices.price(table, 'piqlConnect_only_film')
+        piqlconnect_price = pr.price(table, 'piqlConnect_only_film')
         film_price = offline(payment, type, data_offline, pages, layout)
     preservation_price = piqlconnect_price + online_price + film_price
     return preservation_price, online_price, film_price
@@ -127,21 +127,21 @@ def awa(decision, entity, storage, reel):
     # calculate the prices for Arctic World Archive
     fee = 0
     storage_awa = 0
-    reg_fee = prices.price(table, 'awa_registration_fee')
-    mgmt_fee = prices.price(table, 'awa_management_yearly')
+    reg_fee = pr.price(table, 'awa_registration_fee')
+    mgmt_fee = pr.price(table, 'awa_management_yearly')
     if decision == 'no' or reel == 0:
         awa_price = 0
     else:
         if entity == 'public':
-            fee = reg_fee + prices.price(table, 'awa_contribution_public')
+            fee = reg_fee + pr.price(table, 'awa_contribution_public')
         elif entity == 'private':
-            fee = reg_fee + prices.price(table, 'awa_contribution_private')
+            fee = reg_fee + pr.price(table, 'awa_contribution_private')
         if storage == '5':
-            storage_awa = mgmt_fee + (prices.price(table, 'awa_reel_yearly_5y') * reel)
+            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_5y') * reel)
         elif storage == '10':
-            storage_awa = mgmt_fee + (prices.price(table, 'awa_reel_yearly_10y') * reel)
+            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_10y') * reel)
         elif storage == '25':
-            storage_awa = mgmt_fee + (prices.price(table, 'awa_reel_yearly_25y') * reel)
+            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_25y') * reel)
         awa_price = fee + storage_awa
     return awa_price, fee, storage_awa
 
@@ -149,26 +149,26 @@ def awa(decision, entity, storage, reel):
 def reader(piqlreader, qty, service):
     # calculate the prices for the piqlReader
     support = 0
-    installation = prices.price(table, 'piqlReader_installation')
+    installation = pr.price(table, 'piqlReader_installation')
     if piqlreader == 'no':
         piqlreader_price = 0
     else:
-        piqlreader = qty * prices.price(table, 'piqlReader')
+        piqlreader = qty * pr.price(table, 'piqlReader')
         if service == 'platinum':
-            support = prices.price(table, 'piqlReader_platinum_service')
+            support = pr.price(table, 'piqlReader_platinum_service')
         elif service == 'gold':
-            support = prices.price(table, 'piqlReader_gold_service')
+            support = pr.price(table, 'piqlReader_gold_service')
         piqlreader_price = piqlreader + installation + support
     return piqlreader_price, piqlreader, qty, installation, support
 
 
 def prof_serv(consultacy, days):
     # calculate the prices for professional services
-    prof_serv_price = days * prices.price(table, 'professional_services_day') if consultacy == 'yes' else 0
+    prof_serv_price = days * pr.price(table, 'professional_services_day') if consultacy == 'yes' else 0
     return prof_serv_price, days
 
 
-def print_order(created, customer, comments, offline, visual, layout, online_data, payment,
+"""def print_order(created, customer, comments, offline, visual, layout, online_data, payment,
           awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
     # populate the excel order form with the quantities and prices
 
@@ -196,24 +196,23 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
     sh['E25'] = None
     sh['E27'] = None
 
-
-    piqlcon = prices.price(table, 'piqlConnect_only_film')
+    piqlcon = pr.price(table, 'piqlConnect_only_film')
     total_online_price, piqlconnect_price, online_price = online(online_data, payment)
-    fee = prices.price(table, 'awa_registration_fee')
-    public = prices.price(table, 'awa_contribution_public')
-    private = prices.price(table, 'awa_contribution_private')
-    management = prices.price(table, 'awa_management_yearly')
-    five = prices.price(table, 'awa_reel_yearly_5y')
-    ten = prices.price(table, 'awa_reel_yearly_10y')
-    twentyfive = prices.price(table, 'awa_reel_yearly_25y')
-    prof_price = prices.price(table, 'professional_services_day')
-    read = prices.price(table, 'piqlReader')
-    inst = prices.price(table, 'piqlReader_installation')
-    gold = prices.price(table, 'piqlReader_gold_service')
-    platinum = prices.price(table, 'piqlReader_platinum_service')
+    fee = pr.price(table, 'awa_registration_fee')
+    public = pr.price(table, 'awa_contribution_public')
+    private = pr.price(table, 'awa_contribution_private')
+    management = pr.price(table, 'awa_management_yearly')
+    five = pr.price(table, 'awa_reel_yearly_5y')
+    ten = pr.price(table, 'awa_reel_yearly_10y')
+    twentyfive = pr.price(table, 'awa_reel_yearly_25y')
+    prof_price = pr.price(table, 'professional_services_day')
+    read = pr.price(table, 'piqlReader')
+    inst = pr.price(table, 'piqlReader_installation')
+    gold = pr.price(table, 'piqlReader_gold_service')
+    platinum = pr.price(table, 'piqlReader_platinum_service')
 
     sh['G4'] = created
-    """sh['G5'] = partner"""
+    # sh['G5'] = partner
     sh['G7'] = customer
     sh['F10'] = comments
 
@@ -248,9 +247,9 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
                 sh['H20'] = visual_price(visual, layout, payment)
             sh['F22'] = online_data
             if payment == 'yearly':
-                sh['G22'] = prices.price(table, 'online_storage_yearly_gb')
+                sh['G22'] = pr.price(table, 'online_storage_yearly_gb')
             if payment == 'monthly':
-                sh['G22'] = prices.price(table, 'online_storage_monthly_gb')
+                sh['G22'] = pr.price(table, 'online_storage_monthly_gb')
             sh['H22'] = online_price
             sh['E22'] = payment
 
@@ -314,8 +313,6 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
     sh['H33'] = total
     sh['H34'] = total_2
 
-    wb2.save(my_order)
-
-
+    wb2.save(my_order)"""
 
 

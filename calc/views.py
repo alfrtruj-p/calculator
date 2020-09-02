@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.paginator import Paginator
-from calc import calculator
+from calc import calculator as ca, order
 import os
 
 from .forms import InputForm, UserForm
@@ -21,15 +21,17 @@ def data_history(request):
 
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, offline = calculator.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
-                                                    quote.layout, quote.payment)
+    price, online, offline = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+                                            quote.layout, quote.payment)
 
-    reel = calculator.piqlfilm(quote.offline_data, quote.pages, quote.layout)
-    price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
-    price_piqlreader, piqlreader, qty, installation, support = calculator.reader(quote.piqlreader, quote.quantity, quote.service)
-    price_prof_serv, days = calculator.prof_serv(quote.consultancy, quote.days)
+    reel = ca.piqlfilm(quote.offline_data, quote.pages, quote.layout)
+    price_awa, fee, storage_awa = ca.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
+    price_piqlreader, piqlreader, qty, installation, support = ca.reader(quote.piqlreader, quote.quantity, quote.service)
+    price_prof_serv, days = ca.prof_serv(quote.consultancy, quote.days)
+
     first_year_price = price + price_awa + price_piqlreader + price_prof_serv
     second_year_price = online + storage_awa + support
+
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
             'price_awa': price_awa, 'fee': fee, 'storage_awa': storage_awa, 'first_year_price': first_year_price,
             'second_year_price': second_year_price, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
@@ -40,17 +42,18 @@ def data_quote(request, pk):
 
 def data_order(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, offline = calculator.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
-                                                    quote.layout, quote.payment)
+    price, online, offline = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+                                            quote.layout, quote.payment)
 
-    reel = calculator.piqlfilm(quote.offline_data, quote.pages, quote.layout)
-    price_awa, fee, storage_awa = calculator.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
-    price_piqlreader, piqlreader, qty, installation, support = calculator.reader(quote.piqlreader, quote.quantity,
-                                                                                 quote.service)
-    price_prof_serv, days = calculator.prof_serv(quote.consultancy, quote.days)
+    reel = ca.piqlfilm(quote.offline_data, quote.pages, quote.layout)
+    price_awa, fee, storage_awa = ca.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
+    price_piqlreader, piqlreader, qty, installation, support = ca.reader(quote.piqlreader, quote.quantity, quote.service)
+    price_prof_serv, days = ca.prof_serv(quote.consultancy, quote.days)
+
     first_year_price = price + price_awa + price_piqlreader + price_prof_serv
     second_year_price = online + storage_awa + support
-    order_form = calculator.print_order(quote.created_date, quote.customer_name, quote.comment, quote.offline_data,
+
+    order_form = order.print_order(quote.created_date, quote.customer_name, quote.comment, quote.offline_data,
                                         quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
                                         quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
                                         quote.piqlreader, quote.quantity, quote.service, first_year_price,
