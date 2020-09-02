@@ -30,6 +30,7 @@
                     {% else %}
                         <p>Pages per frame: {{ quote.layout }}</p>
                     {% endif %}
+
                 <hr>
                 {% endif %}
 
@@ -79,10 +80,12 @@
                     <p>piqlFilms: {{ reel }} reels</p>
                     <hr>
                     {% if quote.awa == 'yes' %}
-                        <p>Storage in AWA for {{ reel }} reel(s) is: {{ price_awa }} euros</p>
+                        <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
                         <p>Including:</p>
-                        <p>One time registration and contribution fee for: {{ fee }} euros</p>
-                        <p>Management fee and AWA storage for: {{ storage_awa }} euros per year</p>
+                        <p>One time registration fee for: {{ reg_fee }} euros</p>
+                        <p>One time Contribution fee for: {{ con_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of Management fee: {{ mgmt_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of AWA storage: {{ storage_awa }} euros</p>
                         <hr>
                     {% endif %}
 
@@ -107,6 +110,9 @@
                         {% else %}
                             <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
                         {% endif %}
+                        {% if quote.piqlreader == 'yes' %}
+                            <p><strong>Shipment cost for the piqlReader is calculated according to the destination</strong></p>
+                        {% endif %}
                          <hr>
                         <p><strong>The price from second year is {{ second_year_price }} euros per year</strong></p>
                     </div>
@@ -124,10 +130,12 @@
                 <hr>
                 {% if quote.awa == 'yes' %}
                     {% if quote.offline_data or quote.pages %}
-                        <p>Storage in AWA for {{ reel }} reel(s) is: {{ price_awa }} euros</p>
+                        <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
                         <p>Including:</p>
-                        <p>One time registration and contribution fee for: {{ fee }} euros</p>
-                        <p>Management fee and AWA storage for: {{ storage_awa }} euros per year</p>
+                        <p>One time registration fee for: {{ reg_fee }} euros</p>
+                        <p>One time Contribution fee for: {{ con_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of Management fee: {{ mgmt_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of AWA storage: {{ storage_awa }} euros</p>
                         <hr>
                     {% endif %}
                 {% endif %}
@@ -153,6 +161,9 @@
                         {% else %}
                             <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
                         {% endif %}
+                        {% if quote.piqlreader == 'yes' %}
+                            <p><strong>Shipment cost for the piqlReader is calculated according to the destination</strong></p>
+                        {% endif %}
                     {% endif %}
                     <hr>
                     <p><strong>The price from second year is {{ second_year_price }} euros per year</strong></p>
@@ -166,10 +177,12 @@
                 <p>Online storage for {{ quote.online_data }} GB is: {{ online }} euros per month</p>
                 <hr>
                 {% if quote.awa == 'yes' %}
-                    <p>Storage in AWA for {{ reel }} reel(s) is: {{ price_awa }} euros</p>
-                    <p>Including:</p>
-                    <p>One time registration and contribution fee for: {{ fee }} euros</p>
-                    <p>Management fee and AWA storage for: {{ storage_awa }} euros per year</p>
+                    <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
+                        <p>Including:</p>
+                        <p>One time registration fee for: {{ reg_fee }} euros</p>
+                        <p>One time Contribution fee for: {{ con_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of Management fee: {{ mgmt_fee }} euros</p>
+                        <p>{{ quote.awa_storage }} years of AWA storage: {{ storage_awa }} euros</p>
                     <hr>
                 {% endif %}
                 {% if quote.piqlreader == 'yes' %}
@@ -194,6 +207,9 @@
                         {% else %}
                             <p><strong>Shipment cost to AWA (20 euros/reel): {{ reel|mul:20 }} euros</strong></p>
                         {% endif %}
+                        {% if quote.piqlreader == 'yes' %}
+                            <p><strong>Shipment cost for the piqlReader is calculated according to the destination</strong></p>
+                        {% endif %}
                     {% endif %}
                     <hr>
                     <p><strong>The price from second month is {{ second_year_price }} euros per month</strong></p>
@@ -215,7 +231,9 @@
                 {% else %}
                     <p style="color: #828282"><strong>Incorrect input, Select "Yes" to the piqlReader option</strong></p>
                 {% endif %}
+
             {% endif %}
+
             </div>
           </div>
     </article>

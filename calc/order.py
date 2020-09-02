@@ -118,13 +118,13 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
         sh['H26'] = management
         if storage == '5':
             sh['G27'] = five
-            sh['H27'] = five * reel
+            sh['H27'] = five * reel * 5
         if storage == '10':
             sh['G27'] = ten
-            sh['H27'] = ten * reel
+            sh['H27'] = ten * reel * 10
         if storage == '25':
             sh['G27'] = twentyfive
-            sh['H27'] = twentyfive * reel
+            sh['H27'] = twentyfive * reel * 25
 
     if prof == 'yes':
         sh['F28'] = days

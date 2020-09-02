@@ -125,25 +125,28 @@ def piqlfilm(data, pages, layout):
 
 def awa(decision, entity, storage, reel):
     # calculate the prices for Arctic World Archive
-    fee = 0
-    storage_awa = 0
     reg_fee = pr.price(table, 'awa_registration_fee')
-    mgmt_fee = pr.price(table, 'awa_management_yearly')
+    con_fee = 0
+    storage_awa = 0
+    mgmt_fee = 0
     if decision == 'no' or reel == 0:
         awa_price = 0
     else:
         if entity == 'public':
-            fee = reg_fee + pr.price(table, 'awa_contribution_public')
+            con_fee = pr.price(table, 'awa_contribution_public')
         elif entity == 'private':
-            fee = reg_fee + pr.price(table, 'awa_contribution_private')
+            con_fee = pr.price(table, 'awa_contribution_private')
         if storage == '5':
-            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_5y') * reel)
+            mgmt_fee = pr.price(table, 'awa_management_yearly') * 5
+            storage_awa = pr.price(table, 'awa_reel_yearly_5y') * reel * 5
         elif storage == '10':
-            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_10y') * reel)
+            mgmt_fee = pr.price(table, 'awa_management_yearly') * 10
+            storage_awa = pr.price(table, 'awa_reel_yearly_10y') * reel * 10
         elif storage == '25':
-            storage_awa = mgmt_fee + (pr.price(table, 'awa_reel_yearly_25y') * reel)
-        awa_price = fee + storage_awa
-    return awa_price, fee, storage_awa
+            mgmt_fee = pr.price(table, 'awa_management_yearly') * 25
+            storage_awa = pr.price(table, 'awa_reel_yearly_25y') * reel * 25
+        awa_price = reg_fee + con_fee + mgmt_fee + storage_awa
+    return awa_price, reg_fee, con_fee, mgmt_fee, storage_awa
 
 
 def reader(piqlreader, qty, service):
