@@ -89,7 +89,8 @@ def data_input(request):
             return redirect('data_quote', pk=input.pk)
     else:
         form = InputForm()
-    args = {'form': form}
+    edit = 'New Quote'
+    args = {'form': form, 'edit': edit}
     return render(request, 'calc/data_input.html', args)
 
 
@@ -107,7 +108,8 @@ def data_edit(request, pk):
             return redirect('data_quote', pk=input.pk)
     else:
         form = InputForm(instance=input)
-    return render(request, 'calc/data_input.html', {'form': form})
+    edit = 'Edit Quote'
+    return render(request, 'calc/data_input.html', {'form': form, 'edit': edit})
 
 
 @login_required

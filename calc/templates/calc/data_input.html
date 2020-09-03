@@ -4,7 +4,8 @@
 
 {% block content %}
 
-    <h3>New Quote</h3>
+    <h3>{{ edit }}</h3>
+
     <div class="content-section">
         <form method="POST">
             {% csrf_token %}
