@@ -23,7 +23,7 @@ def clean(sheet):  # clear previous values in the excel sheet
     sheet['E27'] = None
 
 
-def print_order(created, customer, comments, offline, visual, layout, online_data, payment,
+def print_order(created, partner, customer, comments, offline, visual, layout, online_data, payment,
           awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
     # populate the excel order form with the quantities and prices
 
@@ -50,6 +50,7 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
     platinum = pr.price(table, 'piqlReader_platinum_service')
 
     sh['G4'] = created
+    sh['G5'] = partner
     sh['G7'] = customer
     sh['F10'] = comments
 

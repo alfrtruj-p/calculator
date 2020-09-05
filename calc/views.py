@@ -48,6 +48,7 @@ def data_quote(request, pk):
 @login_required
 def data_order(request, pk):
     quote = get_object_or_404(Input, pk=pk)
+    partner = str(request.user)
     price, online, offline = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                             quote.layout, quote.payment)
 
@@ -61,7 +62,7 @@ def data_order(request, pk):
     first_year_price = price + awa_price + price_piqlreader + price_prof_serv
     second_year_price = online + support
 
-    order_form = order.print_order(quote.created_date, quote.customer_name, quote.comment, quote.offline_data,
+    order_form = order.print_order(quote.created_date, partner, quote.customer_name, quote.comment, quote.offline_data,
                                         quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
                                         quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
                                         quote.piqlreader, quote.quantity, quote.service, first_year_price,
