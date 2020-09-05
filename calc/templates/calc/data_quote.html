@@ -77,7 +77,11 @@
 
           <div class="media-body">
             <div class=" result">
+
             {% if quote.payment == 'only_piqlfilm' %}
+                {% if quote.offline_data == 0 and quote.pages == 0 and quote.online_data == 0 %}
+                <p style="color: #828282"><strong>You missed online data or offline data. Please add the amount</strong></p>
+            {% else %}
                 {% if quote.online_data == 0 %}
                     <p>Offline storage for {{ quote.offline_data }} GB and {{ quote.pages }} pages is: {{ price }} euros</p>
                     <p>piqlFilms: {{ reel }} reels</p>
@@ -122,6 +126,7 @@
                 {% else %}
                     <p style="color: #828282"><strong>Incorrect "online payment", please select "Yearly" or "Monthly"</strong></p>
                 {% endif %}
+            {% endif %}
 
             {% elif quote.payment == 'yearly' %}
                 {% if quote.offline_data or quote.pages %}

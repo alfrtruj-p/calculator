@@ -3,8 +3,7 @@ import openpyxl as xl
 from calc import prices as pr, film
 
 
-def online(data, payment):
-    # calculate the online storage prices including piqlConnect
+def online(data, payment):  # calculate the online storage prices including piqlConnect
     piqlconnect_price = 0
     online_p = 0
     if data == 0:
@@ -37,8 +36,7 @@ def piql_prices(type, data_offline, data_online, pages, layout, payment):
     return preservation_price, online_price, film_price
 
 
-def awa(decision, entity, storage, reel):
-    # calculate the prices for Arctic World Archive
+def awa(decision, entity, storage, reel):  # calculate the prices for Arctic World Archive
     reg_fee = pr.price(table, 'awa_registration_fee')
     con_fee = 0
     storage_awa = 0
@@ -46,41 +44,33 @@ def awa(decision, entity, storage, reel):
     if decision == 'no' or reel == 0:
         awa_price = 0
     else:
-        if entity == 'public':
-            con_fee = pr.price(table, 'awa_contribution_public')
-        elif entity == 'private':
-            con_fee = pr.price(table, 'awa_contribution_private')
+        con_fee = pr.price(table, 'awa_contribution_public') if entity == 'public' else pr.price(table, 'awa_contribution_private')
         if storage == '5':
             mgmt_fee = pr.price(table, 'awa_management_yearly') * 5
             storage_awa = pr.price(table, 'awa_reel_yearly_5y') * reel * 5
         elif storage == '10':
             mgmt_fee = pr.price(table, 'awa_management_yearly') * 10
             storage_awa = pr.price(table, 'awa_reel_yearly_10y') * reel * 10
-        elif storage == '25':
+        else:
             mgmt_fee = pr.price(table, 'awa_management_yearly') * 25
             storage_awa = pr.price(table, 'awa_reel_yearly_25y') * reel * 25
         awa_price = reg_fee + con_fee + mgmt_fee + storage_awa
     return awa_price, reg_fee, con_fee, mgmt_fee, storage_awa
 
 
-def reader(piqlreader, qty, service):
-    # calculate the prices for the piqlReader
+def reader(piqlreader, qty, service):  # calculate the prices for the piqlReader
     support = 0
     installation = pr.price(table, 'piqlReader_installation')
     if piqlreader == 'no':
         piqlreader_price = 0
     else:
         piqlreader = qty * pr.price(table, 'piqlReader')
-        if service == 'platinum':
-            support = pr.price(table, 'piqlReader_platinum_service')
-        elif service == 'gold':
-            support = pr.price(table, 'piqlReader_gold_service')
+        support = pr.price(table, 'piqlReader_platinum_service') if service == 'platinum' else pr.price(table, 'piqlReader_gold_service')
         piqlreader_price = piqlreader + installation + support
     return piqlreader_price, piqlreader, qty, installation, support
 
 
-def prof_serv(consultacy, days):
-    # calculate the prices for professional services
+def prof_serv(consultacy, days):  # calculate the prices for professional services
     prof_serv_price = days * pr.price(table, 'professional_services_day') if consultacy == 'yes' else 0
     return prof_serv_price, days
 
