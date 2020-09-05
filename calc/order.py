@@ -1,15 +1,6 @@
-from calc import prices as pr, calculator as ca
+from calc import prices as pr, calculator as ca, film
 import os
 import openpyxl as xl
-
-
-folder = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
-wb = xl.load_workbook(my_file)
-sheet = wb['prices']
-
-table = {}
-pr.price_table(table, sheet)
 
 
 def clean(sheet):  # clear previous values in the excel sheet
@@ -38,7 +29,7 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
 
     folder = os.path.dirname(os.path.abspath(__file__))
     my_order = os.path.join(folder, 'static/calc/piql_order_form.xlsx')
-    wb = xl.load_workbook(my_order)
+    wb = xl.load_workbook(my_order)  # open order-form excel
     sh = wb['order']
 
     clean(sh)
@@ -71,26 +62,26 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
             sh['H18'] = piqlcon
             if offline != 0:
                 sh['F19'] = offline
-                sh['G19'] = ca.digital(offline)
-                sh['H19'] = ca.digital_price(offline, payment)
+                sh['G19'] = film.digital(offline, table)
+                sh['H19'] = film.digital_price(offline, payment, table)
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
-                sh['G20'] = ca.visual(layout)
-                sh['H20'] = ca.visual_price(visual, layout, payment)
+                sh['G20'] = film.visual(layout, table)
+                sh['H20'] = film.visual_price(visual, layout, payment, table)
         else:
             sh['F21'] = 1
             sh['G21'] = piqlconnect_price
             sh['H21'] = piqlconnect_price
             if offline != 0:
                 sh['F19'] = offline
-                sh['G19'] = ca.digital(offline)
-                sh['H19'] = ca.digital_price(offline, payment)
+                sh['G19'] = film.digital(offline, table)
+                sh['H19'] = film.digital_price(offline, payment, table)
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
-                sh['G20'] = ca.visual(layout)
-                sh['H20'] = ca.visual_price(visual, layout, payment)
+                sh['G20'] = film.visual(layout, table)
+                sh['H20'] = film.visual_price(visual, layout, payment, table)
             sh['F22'] = online_data
             if payment == 'yearly':
                 sh['G22'] = pr.price(table, 'online_storage_yearly_gb')
@@ -162,7 +153,13 @@ def print_order(created, customer, comments, offline, visual, layout, online_dat
     wb.save(my_order)
 
 
+folder = os.path.dirname(os.path.abspath(__file__))
+my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
+wb = xl.load_workbook(my_file)
+sheet = wb['prices']
 
+table = {}
+pr.price_table(table, sheet) # create a dictionary with prices/per service
 
 
 
