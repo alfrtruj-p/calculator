@@ -33,7 +33,6 @@
                     {% else %}
                         <p>Pages per frame: {{ quote.layout }}</p>
                     {% endif %}
-
                 <hr>
                 {% endif %}
 
@@ -88,6 +87,7 @@
                     <p>piqlConnect for: {{ piqlconnect }} euros</p>
                     <p>piqlFilms: {{ reel }} reels</p>
                     <hr>
+
                     {% if quote.awa == 'yes' %}
                         <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
                         <p>Including:</p>
@@ -142,6 +142,7 @@
                     <p>Including:</p>
                     <p>piqlConnect bundle for: {{ bundle }} euros</p>
                     <hr>
+
                     {% if quote.awa == 'yes' %}
                         {% if quote.offline_data or quote.pages %}
                             <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
@@ -153,6 +154,7 @@
                             <hr>
                         {% endif %}
                     {% endif %}
+
                     {% if quote.piqlreader == 'yes' %}
                             <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>
                             <p>Including:</p>
@@ -197,6 +199,7 @@
                     <p>Including:</p>
                     <p>piqlConnect bundle for: {{ bundle }} euros</p>
                     <hr>
+
                     {% if quote.awa == 'yes' %}
                         <p>Storage in AWA for {{ reel }} reel(s) is: {{ awa_price }} euros</p>
                             <p>Including:</p>
@@ -205,6 +208,7 @@
                             <p>{{ quote.awa_storage }} years of Management fee: {{ mgmt_fee }} euros</p>
                             <p>{{ quote.awa_storage }} years of AWA storage: {{ storage_awa }} euros</p>
                         <hr>
+                
                     {% endif %}
                     {% if quote.piqlreader == 'yes' %}
                             <p>{{ qty }} piqlReader is: {{ price_piqlreader }} euros</p>

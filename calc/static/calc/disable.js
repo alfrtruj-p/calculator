@@ -1,5 +1,5 @@
 
-function disablePreservation() {
+function disableStorage() {
     if (document.getElementById("id_type").value == "digital")
     {
         document.getElementById("id_offline_data").disabled=false;

@@ -17,20 +17,28 @@ class InputForm(forms.ModelForm):
         self.helper = FormHelper(self)
         self.fields['type'] = forms.ChoiceField(
             choices=TYPE,
-            widget=forms.Select(attrs={'onchange': 'disablePreservation()'})
+            widget=forms.Select(attrs={'onchange': 'disableStorage()'})
         )
+        self.fields['offline_data'].required = False
+        self.fields['pages'].required = False
+        self.fields['layout'].required = False
         self.fields['awa'] = forms.ChoiceField(
             choices=DECISION,
             widget=forms.Select(attrs={'onchange': 'disableAwa()'})
         )
+        self.fields['awa_contribution'].required = False
+        self.fields['awa_storage'].required = False
         self.fields['piqlreader'] = forms.ChoiceField(
             choices=DECISION,
             widget=forms.Select(attrs={'onchange': 'disableReader()'})
         )
+        self.fields['quantity'].required = False
+        self.fields['service'].required = False
         self.fields['consultancy'] = forms.ChoiceField(
             choices=DECISION,
             widget=forms.Select(attrs={'onchange': 'disableProf_serv()'})
         )
+        self.fields['days'].required = False
 
 
 class UserForm(forms.ModelForm):
