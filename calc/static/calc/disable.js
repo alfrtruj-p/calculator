@@ -20,7 +20,6 @@ function disablePreservation() {
     }
 }
 
-
 function disableAwa() {
     if (document.getElementById("id_awa").value == "no")
     {

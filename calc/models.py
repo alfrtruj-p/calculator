@@ -3,7 +3,7 @@ from django.utils import timezone
 
 
 PAY = [('yearly', 'Yearly'), ('monthly', 'Monthly'), ('only_piqlfilm', 'Only piqlFilm'), ('only_piqlreader', 'Only piqlReader')]
-TYPE = [('digital', 'Digital'), ('visual', 'Visual'), ('hybrid', 'Hybrid')]
+TYPE = [('hybrid', 'Hybrid'), ('visual', 'Visual'), ('digital', 'Digital')]
 LAYOUT = [('1', '1 page'), ('2', '2 pages'), ('3', '3 pages'), ('4', '4 page'), ('6', '6 pages'), ('10', '10 pages')]
 CONTRIBUTION = [('public', 'Public'), ('private', 'Private')]
 STORAGE = [('5', '5 years'), ('10', '10 years'), ('25', '25 years')]
@@ -20,7 +20,6 @@ class Input(models.Model):
     pages = models.IntegerField(default=0, verbose_name='Offline visual (pages)')
     layout = models.CharField(default='1', max_length=40, choices=LAYOUT, verbose_name='Pages per frame')
     payment = models.CharField(max_length=40, choices=PAY, verbose_name='Payment')
-    comment = models.TextField(verbose_name='Comments')
     created_date = models.DateTimeField(default=timezone.now)
     awa = models.CharField(default='yes', max_length=40, choices=DECISION, verbose_name='Storage in Arctic World Archive')
     awa_contribution = models.CharField(default='public', max_length=40, choices=CONTRIBUTION, verbose_name='Entity')
@@ -30,6 +29,7 @@ class Input(models.Model):
     service = models.CharField(default='gold', max_length=40, choices=SERVICE, verbose_name='Service agreement')
     consultancy = models.CharField(default='yes', max_length=40, choices=DECISION, verbose_name='Professional services')
     days = models.IntegerField(default=1, verbose_name='How many days?')
+    comment = models.TextField(verbose_name='Comments')
 
     def __str__(self):
         return self.customer_name
