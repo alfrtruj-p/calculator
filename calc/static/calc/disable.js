@@ -1,59 +1,59 @@
 
 function disablePreservation() {
-    if (document.getElementById("type").value == "digital")
+    if (document.getElementById("id_type").value == "digital")
     {
-        document.getElementById("data").disabled=false;
-        document.getElementById("visual").disabled=true;
-        document.getElementById("page").disabled=true;
+        document.getElementById("id_offline_data").disabled=false;
+        document.getElementById("id_pages").disabled=true;
+        document.getElementById("id_layout").disabled=true;
     }
-    else if (document.getElementById("type").value == "visual")
+    else if (document.getElementById("id_type").value == "visual")
     {
-        document.getElementById("data").disabled=true;
-        document.getElementById("visual").disabled=false;
-        document.getElementById("page").disabled=false;
+        document.getElementById("id_offline_data").disabled=true;
+        document.getElementById("id_pages").disabled=false;
+        document.getElementById("id_layout").disabled=false;
     }
-    else (document.getElementById("type").value == "hybrid")
+    else (document.getElementById("id_type").value == "hybrid")
     {
-        document.getElementById("digital").disabled=false;
-        document.getElementById("visual").disabled=false;
-        document.getElementById("page").disabled=false;
+        document.getElementById("id_offline_data").disabled=false;
+        document.getElementById("id_pages").disabled=false;
+        document.getElementById("id_layout").disabled=false;
     }
 }
 
 
 function disableAwa() {
-    if (document.getElementById("awa").value == "no")
+    if (document.getElementById("id_awa").value == "no")
     {
-        document.getElementById("contribution").disabled=true;
-        document.getElementById("storage").disabled=true;
+        document.getElementById("id_awa_contribution").disabled=true;
+        document.getElementById("id_awa_storage").disabled=true;
     }
     else
     {
-        document.getElementById("contribution").disabled=false;
-        document.getElementById("storage").disabled=false;
+        document.getElementById("id_awa_contribution").disabled=false;
+        document.getElementById("id_awa_storage").disabled=false;
     }
 }
 
 function disableReader() {
-    if (document.getElementById("reader").value == "no")
+    if (document.getElementById("id_piqlreader").value == "no")
     {
-        document.getElementById("quantity").disabled=true;
-        document.getElementById("service").disabled=true;
+        document.getElementById("id_quantity").disabled=true;
+        document.getElementById("id_service").disabled=true;
     }
     else
     {
-        document.getElementById("quantity").disabled=false;
-        document.getElementById("service").disabled=false;
+        document.getElementById("id_quantity").disabled=false;
+        document.getElementById("id_service").disabled=false;
     }
 }
 
 function disableProf_serv() {
-    if (document.getElementById("prof").value == "no")
+    if (document.getElementById("id_consultancy").value == "no")
     {
-        document.getElementById("days").disabled=true;
+        document.getElementById("id_days").disabled=true;
     }
     else
     {
-        document.getElementById("days").disabled=false;
+        document.getElementById("id_days").disabled=false;
     }
 }
