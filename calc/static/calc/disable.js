@@ -12,7 +12,7 @@ function disableStorage() {
         document.getElementById("id_pages").disabled=false;
         document.getElementById("id_layout").disabled=false;
     }
-    else (document.getElementById("id_type").value == "hybrid")
+    else
     {
         document.getElementById("id_offline_data").disabled=false;
         document.getElementById("id_pages").disabled=false;
