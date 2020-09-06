@@ -53,16 +53,14 @@ def data_order(request, pk):
                                             quote.layout, quote.payment)
 
     reel = film.piqlfilm(quote.offline_data, quote.pages, quote.layout)
-    awa_price, reg_fee, con_fee, mgmt_fee, storage_awa = ca.awa(quote.awa, quote.awa_contribution, quote.awa_storage,
-                                                                reel)
-    price_piqlreader, piqlreader, qty, installation, support = ca.reader(quote.piqlreader, quote.quantity,
-                                                                         quote.service)
+    awa_price, reg_fee, con_fee, mgmt_fee, storage_awa = ca.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
+    price_piqlreader, piqlreader, qty, installation, support = ca.reader(quote.piqlreader, quote.quantity, quote.service)
     price_prof_serv, days = ca.prof_serv(quote.consultancy, quote.days)
 
     first_year_price = price + awa_price + price_piqlreader + price_prof_serv
     second_year_price = online + support
 
-    order_form = order.print_order(quote.created_date, partner, quote.customer_name, quote.comment, quote.offline_data,
+    order_form = order.print_order(quote.created_date, partner, quote.customer_name, quote.comment, quote.type, quote.offline_data,
                                         quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
                                         quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
                                         quote.piqlreader, quote.quantity, quote.service, first_year_price,

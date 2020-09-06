@@ -27,11 +27,11 @@ def piql_prices(type, data_offline, data_online, pages, layout, payment):
     if data_online > 0:
         online_price, piqlconnect, online_p = online(data_online, payment)
         if data_offline > 0 or pages > 0:
-            film_price = film.offline(payment, type, data_offline, pages, layout, table)
+            film_price, dig = film.offline(payment, type, data_offline, pages, layout, table)
     else:
         payment = 'only_piqlfilm'
         piqlconnect_price = pr.price(table, 'piqlConnect_only_film')
-        film_price = film.offline(payment, type, data_offline, pages, layout, table)
+        film_price, dig = film.offline(payment, type, data_offline, pages, layout, table)
     preservation_price = piqlconnect_price + online_price + film_price
     return preservation_price, online_price, film_price
 

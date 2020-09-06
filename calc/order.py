@@ -23,19 +23,20 @@ def clean(sheet):  # clear previous values in the excel sheet
     sheet['E27'] = None
 
 
-def print_order(created, partner, customer, comments, offline, visual, layout, online_data, payment,
+def print_order(created, partner, customer, comments, type, offline, visual, layout, online_data, payment,
           awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
     # populate the excel order form with the quantities and prices
 
     folder = os.path.dirname(os.path.abspath(__file__))
     my_order = os.path.join(folder, 'static/calc/piql_order_form.xlsx')
-    wb = xl.load_workbook(my_order)  # open order-form excel
+    wb = xl.load_workbook(my_order)  # open order-form excel file
     sh = wb['order']
 
     clean(sh)
 
     piqlcon = pr.price(table, 'piqlConnect_only_film')
     total_online_price, piqlconnect_price, online_price = ca.online(online_data, payment)
+    film_pr, digital_pr = film.offline(payment, type, offline, visual, layout, table)
     fee = pr.price(table, 'awa_registration_fee')
     public = pr.price(table, 'awa_contribution_public')
     private = pr.price(table, 'awa_contribution_private')
@@ -64,7 +65,7 @@ def print_order(created, partner, customer, comments, offline, visual, layout, o
             if offline != 0:
                 sh['F19'] = offline
                 sh['G19'] = film.digital(offline, table)
-                sh['H19'] = film.digital_price(offline, payment, table)
+                sh['H19'] = digital_pr
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
@@ -77,7 +78,7 @@ def print_order(created, partner, customer, comments, offline, visual, layout, o
             if offline != 0:
                 sh['F19'] = offline
                 sh['G19'] = film.digital(offline, table)
-                sh['H19'] = film.digital_price(offline, payment, table)
+                sh['H19'] = digital_pr
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
@@ -161,6 +162,4 @@ sheet = wb['prices']
 
 table = {}
 pr.price_table(table, sheet) # create a dictionary with prices/per service
-
-
 

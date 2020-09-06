@@ -1,5 +1,7 @@
 import math
 from calc import prices as pr
+import os
+import openpyxl as xl
 
 
 def piqlfilm(data, pages, layout):  # calculate the number of reels
@@ -37,7 +39,7 @@ def visual(layout, table):  # piqlFilm visual prices per number of pages per fra
     service = 0
     for i in vis.keys():
         if layout == i in vis.keys():
-            service = table.get(i)
+            service = vis.get(i)
     visual_pr = pr.price(table, service)
     return visual_pr
 
@@ -55,16 +57,19 @@ def visual_price(pages, layout, payment, table):  # calculating piqlFilm visual 
 
 
 def offline(payment, type, data_offline, pages, layout, table):  # calculating total piqlFilm prices including all types
-    digital = 0
-    visual = 0
+    dig = 0
+    vis = 0
     if type == 'digital':
-        digital = digital_price(data_offline, payment, table)
+        dig = digital_price(data_offline, payment, table)
     elif type == 'visual':
-        visual = visual_price(pages, layout, payment, table)
+        vis = visual_price(pages, layout, payment, table)
     else:
-        digital = digital_price(data_offline, payment, table)
-        visual = visual_price(pages, layout, payment, table)
+        dig = digital_price(data_offline, payment, table)
+        vis = visual_price(pages, layout, payment, table)
         if payment == 'yearly' or payment == 'monthly':
-            digital = digital + pr.price(table, 'offline_digital_less_reel')
-    piqlfilm_price = digital + visual
-    return piqlfilm_price
+            dig = dig + pr.price(table, 'offline_digital_less_reel')
+    film_price = dig + vis
+    return film_price, dig
+
+
+
