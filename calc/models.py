@@ -28,7 +28,7 @@ class Input(models.Model):
     piqlreader = models.CharField(default='no', max_length=40, choices=DECISION, verbose_name='piqlReader')
     quantity = models.IntegerField(default=1, verbose_name='Quantity of piqlReaders')
     service = models.CharField(default='gold', max_length=40, choices=SERVICE, verbose_name='Service agreement')
-    consultancy = models.CharField(default='no', max_length=40, choices=DECISION, verbose_name='Professional services')
+    consultancy = models.CharField(default='yes', max_length=40, choices=DECISION, verbose_name='Professional services')
     days = models.IntegerField(default=1, verbose_name='How many days?')
 
     def __str__(self):
