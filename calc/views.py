@@ -26,7 +26,7 @@ def data_history(request):
 @login_required
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, offline = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+    price, online, bundle, offline, piqlconnect = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                             quote.layout, quote.payment)
 
     reel = film.piqlfilm(quote.offline_data, quote.pages, quote.layout)
@@ -37,7 +37,7 @@ def data_quote(request, pk):
     first_year_price = price + awa_price + price_piqlreader + price_prof_serv
     second_year_price = online + support
 
-    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
+    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
             'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
             'storage_awa': storage_awa, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
             'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv,
@@ -49,7 +49,7 @@ def data_quote(request, pk):
 def data_order(request, pk):
     quote = get_object_or_404(Input, pk=pk)
     partner = str(request.user)
-    price, online, offline = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
+    price, online, bundle, offline, piqlconnect = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                             quote.layout, quote.payment)
 
     reel = film.piqlfilm(quote.offline_data, quote.pages, quote.layout)
@@ -68,7 +68,7 @@ def data_order(request, pk):
 
     os.system('start "excel" "C:/Users/AlfredoTrujillo/PycharmProjects/calculator/calc/static/calc/piql_order_form.xlsx"')
 
-    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'reel': reel,
+    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
             'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
             'storage_awa': storage_awa, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
             'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv,

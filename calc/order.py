@@ -36,7 +36,7 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
 
     piqlcon = pr.price(table, 'piqlConnect_only_film')
     total_online_price, piqlconnect_price, online_price = ca.online(online_data, payment)
-    film_pr, digital_pr = film.offline(payment, type, offline, visual, layout, table)
+    film_pr, visual_pr = film.offline(payment, type, offline, visual, layout, table)
     fee = pr.price(table, 'awa_registration_fee')
     public = pr.price(table, 'awa_contribution_public')
     private = pr.price(table, 'awa_contribution_private')
@@ -65,12 +65,12 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
             if offline != 0:
                 sh['F19'] = offline
                 sh['G19'] = film.digital(offline, table)
-                sh['H19'] = digital_pr
+                sh['H19'] = film.digital_price(offline, payment, table)
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
                 sh['G20'] = film.visual(layout, table)
-                sh['H20'] = film.visual_price(visual, layout, payment, table)
+                sh['H20'] = visual_pr
         else:
             sh['F21'] = 1
             sh['G21'] = piqlconnect_price
@@ -78,12 +78,12 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
             if offline != 0:
                 sh['F19'] = offline
                 sh['G19'] = film.digital(offline, table)
-                sh['H19'] = digital_pr
+                sh['H19'] = film.digital_price(offline, payment, table)
             if visual != 0:
                 sh['F20'] = visual
                 sh['E20'] = layout
                 sh['G20'] = film.visual(layout, table)
-                sh['H20'] = film.visual_price(visual, layout, payment, table)
+                sh['H20'] = visual_pr
             sh['F22'] = online_data
             if payment == 'yearly':
                 sh['G22'] = pr.price(table, 'online_storage_yearly_gb')
@@ -108,7 +108,7 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
             sh['H25'] = private
         sh['F26'] = 1
         sh['G26'] = management
-        sh['H26'] = management
+        sh['H26'] = management * int(storage)
         if storage == '5':
             sh['G27'] = five
             sh['H27'] = five * reel * 5

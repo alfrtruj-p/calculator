@@ -67,9 +67,9 @@ def offline(payment, type, data_offline, pages, layout, table):  # calculating t
         dig = digital_price(data_offline, payment, table)
         vis = visual_price(pages, layout, payment, table)
         if payment == 'yearly' or payment == 'monthly':
-            dig = dig + pr.price(table, 'offline_digital_less_reel')
+            vis = vis + pr.price(table, 'offline_visual_less_reel')
     film_price = dig + vis
-    return film_price, dig
+    return film_price, vis
 
 
 
