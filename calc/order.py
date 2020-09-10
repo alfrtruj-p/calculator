@@ -27,8 +27,8 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
           awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
     # populate the excel order form with the quantities and prices
 
-    folder = os.path.dirname(os.path.abspath(__file__))
-    my_order = os.path.join(folder, 'static/calc/piql_order_form.xlsx')
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    my_order = os.path.join(BASE_DIR, 'static/calc/Piql_order_form.xlsx')
     wb = xl.load_workbook(my_order)  # open order-form excel file
     sh = wb['order']
 
