@@ -1,0 +1,121 @@
+
+body {
+  background: #fafafa;
+  color: #333333;
+  margin-top: 5rem;
+}
+
+ul {
+  margin: 0;
+}
+
+.bg-steel {
+  background-color: #E05F2E;
+}
+
+.navbar-brand mr-4 {
+    font-size: 30px;
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link:hover {
+  color: #cbd5db;
+}
+
+.site-header .navbar-nav .nav-link.active {
+  font-weight: 500;
+}
+
+.content-section {
+  background: #ffffff;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.image img {
+    max-width: 100%;
+}
+
+h3 {
+    color: #E05F2E;
+    padding: 20px 0px 20px 0px;
+}
+
+.my_quote, .result {
+    font-size: 12pt;
+    padding-top: 10px;
+}
+
+.btn-primary, .btn-primary:hover {
+    background-color: #E05F2E;
+    border-color: #E05F2E;
+}
+
+.fa-edit {
+    color: #E05F2E;
+    padding: 0px 15px 0px 0px;
+    float: right;
+}
+
+.fa-trash-alt {
+    color: #E05F2E;
+    padding: 0px 15px 0px 0px;
+    float: right;
+}
+
+.fa-file-excel {
+    color: #E05F2E;
+    padding: 0px 15px 0px 0px;
+    float: right;
+}
+
+.ml-2, .ml-2:hover {
+    color: #E05F2E;
+    text-decoration: none;
+}
+
+.list-group a {
+    color: #5E4651;
+    text-decoration: none;
+}
+
+.article-metadata {
+  padding-bottom: 1px;
+  margin-bottom: 4px;
+  border-bottom: 1px solid #e3e3e3
+}
+
+.article-metadata a, .article-metadata a:hover {
+  color: #E05F2E;
+  text-decoration: none;
+}
+
+.article-svg {
+  width: 25px;
+  height: 25px;
+  vertical-align: middle;
+}
+
+.btn-info, .btn-info:hover {
+    background-color: #E05F2E;
+    border-color: #E05F2E;
+}
+
+.btn-outline-info {
+    border-color: #E05F2E;
+    color: #E05F2E;
+}
+
+.btn-outline-info:hover {
+    background-color: #E05F2E;
+    border-color: #E05F2E;
+}
+
+.asteriskField {
+    display: none;
+}
