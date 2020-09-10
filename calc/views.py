@@ -66,7 +66,8 @@ def data_order(request, pk):
                                         quote.piqlreader, quote.quantity, quote.service, first_year_price,
                                         second_year_price)
 
-    os.system('start "excel" "C:/Users/AlfredoTrujillo/PycharmProjects/calculator/calc/static/calc/piql_order_form.xlsx"')
+
+    os.system('start "excel" "/home/alfrtruj/calculator/static/calc/Piql_order_form.xlsx"')
 
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
             'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
