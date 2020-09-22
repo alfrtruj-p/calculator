@@ -31,7 +31,7 @@ DEBUG = True
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-ALLOWED_HOSTS = ['139.162.195.127', 'calculator.alftrujillo.com']
+ALLOWED_HOSTS = ['139.162.195.127', 'www.calculator.alftrujillo.com']
 
 LOGIN_REDIRECT_URL = '/'
 
