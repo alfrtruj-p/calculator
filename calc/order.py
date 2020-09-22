@@ -140,15 +140,19 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
             sh['G31'] = platinum
             sh['H31'] = platinum
 
+    shipment = 0
     if reel != 0:
         sh['E32'] = reel
         if awa == 'yes':
             sh['G32'] = 20
             sh['H32'] = reel * 20
+            shipment = reel * 20
         if awa == 'no':
             sh['G32'] = 30
             sh['H32'] = reel * 30
+            shipment = reel * 30
 
+    total = total + shipment
     sh['H33'] = total
     sh['H34'] = total_2
 
