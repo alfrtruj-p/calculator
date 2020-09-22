@@ -72,14 +72,5 @@ def offline(payment, type, data_offline, pages, layout, table):  # calculating t
     return film_price, vis
 
 
-folder = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
-wb = xl.load_workbook(my_file)
-sheet = wb['prices']
 
-table = {}
-pr.price_table(table, sheet)  # create a dictionary with prices/per service from excel sheet
-
-x = visual_price(130000, '1', 'yearly', table)
-print(x)
 
