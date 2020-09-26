@@ -86,10 +86,12 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
                 sh['G20'] = film.visual(layout, table)
                 sh['H20'] = visual_pr
             sh['F22'] = online_data
-            if payment == 'yearly':
-                sh['G22'] = pr.price(table, 'online_storage_yearly_gb')
-            if payment == 'monthly':
-                sh['G22'] = pr.price(table, 'online_storage_monthly_gb')
+            if 1000 < online_data <= 50999:
+                sh['G22'] = pr.price(table, 'online_storage_0_50_tb')
+            if 51000 < online_data <= 100999:
+                sh['G22'] = pr.price(table, 'online_storage_51_100_tb')
+            if online_data >= 101000:
+                sh['G22'] = pr.price(table, 'online_storage_100_up_tb')
             sh['H22'] = online_price
             sh['E22'] = payment
 
