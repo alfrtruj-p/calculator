@@ -8,7 +8,7 @@ from django.core.paginator import Paginator
 from calc import calculator as ca, order, film
 from calculator import settings
 import os
-import mimetypes
+
 
 from .forms import InputForm, UserForm
 from .models import Input
