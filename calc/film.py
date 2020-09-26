@@ -1,7 +1,5 @@
 import math
 from calc import prices as pr
-import os
-import openpyxl as xl
 
 
 def piqlfilm(data, pages, layout):  # calculate the number of reels

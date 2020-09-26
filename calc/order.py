@@ -1,6 +1,7 @@
 from calc import prices as pr, calculator as ca, film
 import os
 import openpyxl as xl
+from calculator import settings
 
 
 def clean(sheet):  # clear previous values in the excel sheet
@@ -27,8 +28,8 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
           awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
     # populate the excel order form with the quantities and prices
 
-    folder = os.path.dirname(os.path.abspath(__file__))
-    my_order = os.path.join(folder, 'static/calc/piql_order_form.xlsx')
+    folder = settings.BASE_DIR
+    my_order = os.path.join(folder, 'calc/static/calc/Piql_order_form.xlsx')
     wb = xl.load_workbook(my_order)  # open order-form excel file
     sh = wb['order']
 
@@ -159,8 +160,8 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
     wb.save(my_order)
 
 
-folder = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
+folder = settings.BASE_DIR
+my_file = os.path.join(folder, 'calc/static/calc/Piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 

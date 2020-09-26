@@ -1,6 +1,7 @@
 import os
 import openpyxl as xl
 from calc import prices as pr, film
+from calculator import settings
 
 
 def online(data, payment):  # calculate the online storage prices including piqlConnect
@@ -76,8 +77,8 @@ def prof_serv(consultacy, days):  # calculate the prices for professional servic
     return prof_serv_price, days
 
 
-folder = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
+folder = settings.BASE_DIR
+my_file = os.path.join(folder, 'calc/static/calc/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 

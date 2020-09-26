@@ -1,11 +1,14 @@
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.core.paginator import Paginator
 from calc import calculator as ca, order, film
+from calculator import settings
 import os
+import mimetypes
 
 from .forms import InputForm, UserForm
 from .models import Input
@@ -26,28 +29,6 @@ def data_history(request):
 @login_required
 def data_quote(request, pk):
     quote = get_object_or_404(Input, pk=pk)
-    price, online, bundle, offline, piqlconnect = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
-                                            quote.layout, quote.payment)
-
-    reel = film.piqlfilm(quote.offline_data, quote.pages, quote.layout)
-    awa_price, reg_fee, con_fee, mgmt_fee, storage_awa = ca.awa(quote.awa, quote.awa_contribution, quote.awa_storage, reel)
-    price_piqlreader, piqlreader, qty, installation, support = ca.reader(quote.piqlreader, quote.quantity, quote.service)
-    price_prof_serv, days = ca.prof_serv(quote.consultancy, quote.days)
-
-    first_year_price = price + awa_price + price_piqlreader + price_prof_serv
-    second_year_price = online + support
-
-    args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
-            'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
-            'storage_awa': storage_awa, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
-            'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv,
-            'days': days, 'first_year_price': first_year_price, 'second_year_price': second_year_price}
-    return render(request, 'calc/data_quote.html', args)
-
-
-@login_required
-def data_order(request, pk):
-    quote = get_object_or_404(Input, pk=pk)
     partner = str(request.user)
     price, online, bundle, offline, piqlconnect = ca.piql_prices(quote.type, quote.offline_data, quote.online_data, quote.pages,
                                             quote.layout, quote.payment)
@@ -60,21 +41,31 @@ def data_order(request, pk):
     first_year_price = price + awa_price + price_piqlreader + price_prof_serv
     second_year_price = online + support
 
-    order_form = order.print_order(quote.created_date, partner, quote.customer_name, quote.comment, quote.type, quote.offline_data,
-                                        quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
-                                        quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
-                                        quote.piqlreader, quote.quantity, quote.service, first_year_price,
-                                        second_year_price)
-
-    os.system('start "excel" "C:/Users/AlfredoTrujillo/PycharmProjects/calculator/calc/static/calc/piql_order_form.xlsx"')
+    order_form = order.print_order(quote.created_date, partner, quote.customer_name, quote.comment, quote.type,
+                                   quote.offline_data,
+                                   quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
+                                   quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
+                                   quote.piqlreader, quote.quantity, quote.service, first_year_price,
+                                   second_year_price)
 
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
             'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
             'storage_awa': storage_awa, 'price_piqlreader': price_piqlreader, 'piqlreader': piqlreader,
             'qty': qty, 'installation': installation, 'support': support, 'price_prof_serv': price_prof_serv,
-            'days': days, 'first_year_price': first_year_price, 'second_year_price': second_year_price,
-            'order_form': order_form}
-    return render(request, 'calc/data_order.html', args)
+            'days': days, 'first_year_price': first_year_price, 'second_year_price': second_year_price, 'order_form': order_form}
+    return render(request, 'calc/data_quote.html', args)
+
+
+@login_required
+def download_file(request):
+    folder = settings.BASE_DIR
+    fl_path = os.path.join(folder, 'calc/static/calc/piql_order_form.xlsx')
+    filename = 'Piql_order_form.xlsx'
+
+    fl = open(fl_path, 'rb')
+    response = HttpResponse(fl, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
 
 
 @login_required
@@ -129,6 +120,7 @@ def signup(request):
     else:
         form = UserForm()
     return render(request, 'calc/signup.html', {'form': form})
+
 
 
 
