@@ -100,6 +100,3 @@ sheet = wb['prices']
 table = {}
 pr.price_table(table, sheet)  # create a dictionary with prices/per service from excel sheet
 
-
-x = online(3000, 'yearly')
-print(x)
