@@ -1,6 +1,21 @@
 import os
 import openpyxl as xl
 from calc import prices as pr, film
+from calculator import settings
+
+
+def online_tier(data):  # calculate the online storage price per terabyte stored
+    free_tb = 1000
+    if data < 1000:
+        online_p = 0
+    else:
+        if 1000 < data <= 50999:
+            online_p = (data - free_tb) * pr.price(table, 'online_storage_0_50_tb')
+        elif 51000 <= data <= 100999:
+            online_p = (data - free_tb) * pr.price(table, 'online_storage_51_100_tb')
+        else:
+            online_p = (data - free_tb) * pr.price(table, 'online_storage_100_up_tb')
+    return online_p
 
 
 def online(data, payment):  # calculate the online storage prices including piqlConnect
@@ -11,10 +26,11 @@ def online(data, payment):  # calculate the online storage prices including piql
     else:
         if payment == 'yearly':
             piqlconnect_price = pr.price(table, 'piqlConnect_yearly')
-            online_p = 0 if data < 1000 else (data - 1000) * pr.price(table, 'online_storage_yearly_gb')
+            online_p = online_tier(data)
+
         elif payment == 'monthly':
             piqlconnect_price = pr.price(table, 'piqlConnect_monthly')
-            online_p = 0 if data < 1000 else (data - 1000) * pr.price(table, 'online_storage_monthly_gb')
+            online_p = online_tier(data)
     online_price = piqlconnect_price + online_p
     return online_price, piqlconnect_price, online_p
 
@@ -76,8 +92,8 @@ def prof_serv(consultacy, days):  # calculate the prices for professional servic
     return prof_serv_price, days
 
 
-folder = os.path.dirname(os.path.abspath(__file__))
-my_file = os.path.join(folder, 'static/calc/piql_prices.xlsx')
+folder = settings.BASE_DIR
+my_file = os.path.join(folder, 'calc/static/calc/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 
