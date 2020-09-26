@@ -163,7 +163,7 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
 
 
 folder = settings.BASE_DIR
-my_file = os.path.join(folder, 'calc/static/calc/Piql_prices.xlsx')
+my_file = os.path.join(folder, 'calc/static/calc/piql_prices.xlsx')
 wb = xl.load_workbook(my_file)
 sheet = wb['prices']
 
