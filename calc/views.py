@@ -122,6 +122,19 @@ def signup(request):
     return render(request, 'calc/signup.html', {'form': form})
 
 
+@login_required
+def price_list(request):
+    folder = settings.BASE_DIR
+    fl_path = os.path.join(folder, 'calc/static/calc/200926_piql_prices.pdf')
+    filename = '200926_piql_prices.pdf'
+
+    fl = open(fl_path, 'rb')
+    response = HttpResponse(fl, content_type='application/pdf')
+    response['Content-Disposition'] = "attachment; filename=%s" % filename
+    return response
+
+
+
 
 
 
