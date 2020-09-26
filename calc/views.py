@@ -59,7 +59,7 @@ def data_quote(request, pk):
 @login_required
 def download_file(request):
     folder = settings.BASE_DIR
-    fl_path = os.path.join(folder, 'calc/static/calc/piql_order_form.xlsx')
+    fl_path = os.path.join(folder, 'calc/static/calc/Piql_order_form.xlsx')
     filename = 'Piql_order_form.xlsx'
 
     fl = open(fl_path, 'rb')
