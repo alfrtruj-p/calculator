@@ -46,7 +46,7 @@ def data_quote(request, pk):
                                    quote.pages, quote.layout, quote.online_data, quote.payment, quote.awa,
                                    quote.awa_contribution, quote.awa_storage, reel, quote.consultancy, quote.days,
                                    quote.piqlreader, quote.quantity, quote.service, first_year_price,
-                                   second_year_price)
+                                   second_year_price, quote.production)
 
     args = {'quote': quote, 'price': price, 'offline': offline, 'online': online, 'bundle': bundle, 'piqlconnect': piqlconnect, 'reel': reel,
             'awa_price': awa_price, 'reg_fee': reg_fee, 'con_fee': con_fee, 'mgmt_fee': mgmt_fee,
