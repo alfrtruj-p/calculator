@@ -25,7 +25,7 @@ def clean(sheet):  # clear previous values in the excel sheet
 
 
 def print_order(created, partner, customer, comments, type, offline, visual, layout, online_data, payment,
-          awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2):
+          awa, entity, storage, reel, prof, days, piqlreader, qty, service, total, total_2, production):
     # populate the excel order form with the quantities and prices
 
     folder = settings.BASE_DIR
@@ -158,6 +158,7 @@ def print_order(created, partner, customer, comments, type, offline, visual, lay
     total = total + shipment
     sh['H33'] = total
     sh['H34'] = total_2
+    sh['C35'] = production
 
     wb.save(my_order)
 

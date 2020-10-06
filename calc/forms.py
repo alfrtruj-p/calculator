@@ -10,7 +10,7 @@ class InputForm(forms.ModelForm):
         model = Input
         fields = ['customer_name', 'type', 'offline_data', 'pages', 'layout', 'online_data', 'payment',
                   'awa', 'awa_contribution', 'awa_storage', 'piqlreader', 'quantity', 'service', 'consultancy',
-                  'days', 'comment']
+                  'days', 'production', 'comment']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

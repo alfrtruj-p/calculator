@@ -9,6 +9,7 @@ CONTRIBUTION = [('public', 'Public'), ('private', 'Private')]
 STORAGE = [('5', '5 years'), ('10', '10 years'), ('25', '25 years')]
 DECISION = [('yes', 'Yes'), ('no', 'No')]
 SERVICE = [('platinum', 'Platinum'), ('gold', 'Gold')]
+PRODUCTION = [('Piql Norway', 'Piql Norway'), ('Piql Slovakia', 'Piql Slovakia'), ('Piql Mexico', 'Piql Mexico')]
 
 
 class Input(models.Model):
@@ -29,6 +30,7 @@ class Input(models.Model):
     service = models.CharField(default='gold', max_length=40, choices=SERVICE, verbose_name='Service agreement')
     consultancy = models.CharField(default='yes', max_length=40, choices=DECISION, verbose_name='Professional services')
     days = models.IntegerField(default=1, verbose_name='How many days?')
+    production = models.CharField(default='Piql Norway', verbose_name='Production partner:', max_length=40, choices=PRODUCTION)
     comment = models.TextField(verbose_name='Comments')
 
     def __str__(self):
